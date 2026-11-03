@@ -1,8 +1,8 @@
-# Busy Beaver $BB(6)$ Holdouts Research: Formal Proofs & Algebraic-Adelic Theory
+# Busy Beaver $BB(6)$ Holdouts Research: Exact Algebraic Macro-Dynamics & Adelic Theory
 
 This repository contains two comprehensive mathematical monographs investigating 6-state, 2-symbol Turing machines ($BB(6)$) from [**The Busy Beaver Challenge**](https://bbchallenge.org/):
 
-1. **A Complete, Self-Contained Formal Non-Halting Proof** for Holdout Turing Machine **`#1965`** (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`) via a Parity-Aware Closed Tape Language (CTL) and a 29-state Deterministic Finite Automaton (DFA).
+1. **Exact Algebraic Macro-Dynamics, Two-Regime Symbolic Automaton, and Counter-Reservoir Coupling** for Holdout Turing Machine **`#1965`** (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`), establishing the exact closed-form right-boundary transition engine (`macro_step`), the Universal Bit-Growth Law ($\Delta b_j = +8$ per $2^{j+1}$ cycles), the Causal Shielding Theorem, the exact Modulo-16 Collatz-like reservoir recurrence ($R_0^{\text{next}} = \frac{3}{2} R_0 + \{6, 10\}$), and the unconditional closure of the Two-Regime 15-Head Defect-Wave Automaton, verified over $500,000$ macro-cycles ($t = 161,807,060,367$ individual TM steps).
 2. **An Extensive Algebraic-Adelic and Diophantine Treatise** on the **Antihydra** Turing Machine (`1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA`), establishing a 14-part theoretical framework—the *Calculus of Carry Defects on Bimodular Lattices (CCDBL)*—while rigorously delineating proved structural theorems from the remaining open problems required to settle its global halting conjecture.
 
 ---
@@ -20,27 +20,25 @@ bb6-holdouts-research/
 
 | Directory & File | Target Machine ($BB(6)$) | Status | Nature of Contribution |
 | :--- | :--- | :---: | :--- |
-| [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md) | **TM `#1965`**<br>`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF` | ✅ **Resolved**<br>*(Proved Non-Halting)* | Complete, human- and machine-verifiable inductive closure proof ($t = \infty$) with embedded Python CTL/DFA verifier. |
-| [`02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md`](./02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md) | **Antihydra**<br>`1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA` | 🔬 **Theoretical Advance**<br>*(Halting Conjecture Open)* | 14-part mathematical treatise proving exact algebraic, $p$-adic, Archimedian, and Diophantine invariants + 8-test Python verification suite. |
+| [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md) | **TM `#1965`**<br>`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF` | 🔬 **Exact Algebraic Reduction & Two-Regime Closure**<br>*(Verified to $t = 1.618 \times 10^{11}$)* | Exact closed-form macro-simulator, $+8$ bit-growth law, Causal Shielding, exact mod-16 Collatz-like reservoir recurrence, and Two-Regime 15-Head Automaton closure + Python verifier. |
+| [`02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md`](./02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md) | **Antihydra**<br>`1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA` | 🔬 **Theoretical Advance**<br>*(Halting Conjecture Open)* | 14-part mathematical treatise proving exact algebraic, $p$-adic, Archimedean, and Diophantine invariants + 8-test Python verification suite. |
 
 ---
 
-## 1. Complete Mathematical Solution: Turing Machine `#1965`
+## 1. Exact Algebraic Macro-Dynamics & Two-Regime Automaton: Turing Machine `#1965`
 
 📄 **Document:** [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md)
 
-### Problem Statement & Difficulty
-Within $BB(6)$, machines classified under *"Tape invariants, block structure"* exhibit complex bouncer and fractal counter dynamics where runs of `1`s separated by variable-width zero delimiters (`000`, `00`, and `0`) expand and merge across the tape. Standard fixed-width block deciders fail on Machine `#1965` because phase shifts introduce a solitary `0` separator whose survival or annihilation depends on the exact modulo-$2$ parity of adjacent blocks of `1`s.
+### Problem Statement & Peer-Review Revision
+Machine `#1965` (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`) couples a binary counter on the left tape with an exponentially growing unary reservoir $1^R [A] 0^\infty$ on the right boundary. Following peer review on the `bbchallenge` Discord by **Claude (Heron)**, who demonstrated that an earlier draft's naive 5-subtype regular CTL left $\mathcal{I}_A$ at $t = 3868 \to 3908$ (via a trailing $010 = (01)^1 0$ after $000$ at reservoir drain) and at $t = 13,978$ (when transient solitary zeroes `z = 1` first appear), this revised monograph establishes the complete closed-form algebraic theory of the machine and proves why *no* finite-state regular CTL that abstracts $R$ without counter-reservoir coupling can close.
 
-### Main Result (Proved)
-> **Theorem:** Started on a blank tape $0^\infty [A] 0^\infty$, Turing Machine `#1965` (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`) never halts ($t = \infty$).
-
-### Key Components of the Proof
-* **Exact Halting Characterization (Lemma 11):** Proves that the undefined transition `E1 -> ---` can only be triggered if a left-moving `C`-sweep encounters a solitary `0` immediately preceded by an **odd** run of `1`s ($1^{2k+1} 0 [C] 0$).
-* **System of 10 Block Macro-Transitions (Lemmas 1–10):** Derives exact symbolic multi-step rules governing left-sweeps in state $C$, boundary bounces, and right-sweeps in state $A$.
-* **Parity-Aware Closed Tape Language $\mathcal{I}_A$ (Section 3):** Defines an explicit regular language partitioned into five disjoint subtypes ($\mathcal{I}_A = \mathcal{I}_A^{(\text{I})} \cup \mathcal{I}_A^{(\text{II})} \cup \mathcal{I}_A^{(\text{III})} \cup \mathcal{I}_A^{(\text{IV})} \cup \mathcal{I}_A^{(\text{V})}$), formalized both as a pure Regular Expression and as an explicit **29-state Deterministic Finite Automaton (DFA)** over the left tape.
-* **Uniqueness & Parity Protection of the Solitary `0` (Lemmas 12 & 13):** Proves that at most one solitary `0` separator exists on the tape at any cut-point and that it is invariably shielded to its left by an **even** block $1^{2m}$ ($m \ge 1$), preventing the halting condition from ever occurring.
-* **Exhaustive Inductive Closure (Section 4) & Standalone Verifier (Section 5):** Enters $\mathcal{I}_A$ at step $t_0 = 10$ ($0^\infty 100010 [A] 0^\infty \in \mathcal{I}_A^{(\text{I})}$) and proves closure ($\mathcal{I}_A \to \mathcal{I}_A$) across all five subtypes, accompanied by an automated Python verification script validating the DFA, regexes, and execution trace up to $t = 710$.
+### Main Proved Theorems & Verified Reduction
+* **Theorem 1 — Exact Closed-Form Macro-Simulator (`macro_step`):** Derives the exact closed-form transition mapping any right-boundary configuration $\dots [A] 0^\infty$ to the next right-boundary configuration via Phase 1 ($C$-sweep parity dichotomy) and Phase 2 (**Rules A, B, and C**, including Rule C for trailing $(01)^1 0\ 0^\infty \to 00 [A] 0^\infty$ at $t = 3908$). Verified bit-for-bit across all $2,551$ right-boundary cycles in the first $5,000,000$ TM steps.
+* **Theorem 2 — Solitary-Zero Creation & 4-Stage $+8$ Promotion Lifecycle:** Proves that a solitary zero (`z = 1`) is never created in Phase 2, and whenever Phase 1 creates `z = 1`, Phase 2 invariably places `(3, 3)` (`1^3 000`) immediately to its right: $(a, 1), (3, 3)$. On the first subsequent carry, the `000` separator forces a bounce that promotes `(3, 3)` to `(6, 2)`; on the second carry, the even block `6` sweeps across `z = 1` in state $C$ (`C0 -> 1RA`), absorbing the solitary zero into $(a+3, 3), (6, 3)$ and climbing the $+8$ ladder $6 \to 9 \to 12 \to 15 \to 14$.
+* **Theorem 3 — Universal Binary-Counter Bit-Growth Law:** Proves that in the standard binary-counter alphabet $\Sigma_{\text{std}} = \{(\text{'E14'}, 3), (\text{'O15'}, 2)\}$, every bit position $j \ge 1$ from the right gains $\Delta b_j = +3 + 3 + 3 - 1 = +8$ unary $1$s per $2^{j+1}$ macro-cycles ($\Delta R = -2^{j+2}$), yielding $\Delta b_j / |\Delta R| = 1 / 2^{j-1}$.
+* **Theorem 4 & Theorem 5 — Causal Shielding & Exact Modulo-16 Reservoir Recurrence:** Proves that bits $j = 1, \dots, r-1$ and $R$ are 100% causally shielded from all defects at depth $d \ge r + 1$. Consequently, the $0 \pmod 4$ reservoir sizes $\{R_0^{(n)}\}_{n \ge 1}$ (starting at Cycle 89 with $R_0^{(1)} = 60$) satisfy $R_0^{(n)} \equiv 4 \pmod 8$ and obey the exact Collatz-like recurrence:
+  $$R_0^{(n+1)} = \begin{cases} \frac{3}{2} R_0^{(n)} + 6 & \text{if } R_0^{(n)} \equiv 4 \pmod{16} \quad (\text{2-era super-cycle}), \\[4pt] \frac{3}{2} R_0^{(n)} + 10 & \text{if } R_0^{(n)} \equiv 12 \pmod{16} \quad (\text{3-era super-cycle}). \end{cases}$$
+* **Theorem 6 & Theorem 7 — Two-Regime Symbolic Automaton & Defect-Drain Separation:** Proves by exact symbolic model checking that **Regime 1** (the 15-Head Defect-Wave Automaton for $R \ge 20$) and **Regime 2** (the Reservoir Drain Automaton for $R \le 18 \to R_{\text{new}}$ on $\Sigma_{\text{std}}^{\ge 4}$) are 100% closed and halt-free, reducing global non-halting to the *Defect-Drain Separation Property*, verified across all $500,000$ macro-cycles ($t = 161,807,060,367$ steps; $52$ reservoir eras).
 
 ---
 
@@ -83,5 +81,5 @@ As explicitly documented in **Section 14.2** and **Appendix C.2**, this treatise
 
 Both documents include self-contained Python verification scripts with zero external dependencies (requiring only Python 3.8+ standard library modules):
 
-* **TM `#1965` CTL & 29-State DFA Verifier:** Located in Section 5 of [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md).
+* **TM `#1965` Exact Macro-Step, Modulo-16 Reservoir Recurrence & Two-Regime Automaton Verifier:** Located in Section 5 of [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md).
 * **Antihydra 8-Test Mathematical Audit Suite:** Located in Appendix B.2 of [`02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md`](./02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md).

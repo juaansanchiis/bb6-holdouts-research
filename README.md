@@ -38,9 +38,10 @@ Machine `#1965` (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`) couples a binary c
 * **Theorem 3 — Universal Binary-Counter Bit-Growth Law:** Proves that in the standard binary-counter alphabet $\Sigma_{\text{std}} = \{(\text{'E14'}, 3), (\text{'O15'}, 2)\}$, every bit position $j \ge 1$ from the right gains $\Delta b_j = +3 + 3 + 3 - 1 = +8$ unary $1$s per $2^{j+1}$ macro-cycles ($\Delta R = -2^{j+2}$), yielding $\Delta b_j / |\Delta R| = 1 / 2^{j-1}$.
 * **Theorem 4 & Theorem 5 — Causal Shielding & Exact Modulo-16 Reservoir Recurrence:** Proves that bits $j = 1, \dots, r-1$ and $R$ are 100% causally shielded from all defects at depth $d \ge r + 1$. Consequently, the $0 \pmod 4$ reservoir sizes $\{R_0^{(n)}\}_{n \ge 1}$ (starting at Cycle 89 with $R_0^{(1)} = 60$) satisfy $R_0^{(n)} \equiv 4 \pmod 8$ and obey the exact Collatz-like recurrence:
 
-  $$
-  R_0^{(n+1)} = \begin{cases} \frac{3}{2} R_0^{(n)} + 6 & \text{if } R_0^{(n)} \equiv 4 \pmod{16} \quad (\text{2-era super-cycle}), \\[4pt] \frac{3}{2} R_0^{(n)} + 10 & \text{if } R_0^{(n)} \equiv 12 \pmod{16} \quad (\text{3-era super-cycle}). \end{cases}
-  $$
+$$
+R_0^{(n+1)} = \begin{cases} \frac{3}{2} R_0^{(n)} + 6 & \text{if } R_0^{(n)} \equiv 4 \pmod{16} \quad (\text{2-era super-cycle}), \\[4pt] \frac{3}{2} R_0^{(n)} + 10 & \text{if } R_0^{(n)} \equiv 12 \pmod{16} \quad (\text{3-era super-cycle}). \end{cases}
+$$
+
 * **Theorem 6 & Theorem 7 — Two-Regime Symbolic Automaton & Defect-Drain Separation:** Proves by exact symbolic model checking that **Regime 1** (the 15-Head Defect-Wave Automaton for $R \ge 20$) and **Regime 2** (the Reservoir Drain Automaton for $R \le 18 \to R_{\text{new}}$ on $\Sigma_{\text{std}}^{\ge 4}$) are 100% closed and halt-free, reducing global non-halting to the *Defect-Drain Separation Property*, verified across all $500,000$ macro-cycles ($t = 161,807,060,367$ steps; $52$ reservoir eras).
 
 ---
@@ -71,14 +72,16 @@ Every theorem labeled **`[Proved]`** in the treatise is established with a compl
 8. **Parts XIII & XIV — Generating Functions & Base-3 Carry Transducer:** Establishes the infinite product for $\alpha$, the base-3 left-to-right carry transducer governing digit populations $(V_n, U_n, D_n)$, and proves the **Universal Ternary Tail Theorem** ($a_{t+m+1} \bmod 3^m = \frac{3^m + 3}{2} = [11\dots 120]_3$) at the close of every odd run of length $m \ge 2$.
 9. **Part XV — Quadratic Step-Time Telescoping & Cumulative Turing Action Law ($T_N$):** Uses the affine curve identity $6a_n p_n = 9a_n^2 - 4a_{n+1}^2 + p_n$ to eliminate the $a_n p_n$ cross-term from the bit-level step duration $\Delta t_n = a_{n+1}^2 - \frac{3}{2}a_n^2 + 2(1 - p_n)b_n - 1 - \frac{11}{2}p_n$, and proves the global parity-free **Cumulative Turing Machine Action Law**:
 
-   $$
-   6 T_N + 3 \sum_{n=0}^{N-1} a_n^2 - 4 \sum_{n=0}^{N-1} b_n = 6 a_N^2 + b_N(2b_N + 9) - 32N - 318 \qquad (\forall N \ge 1).
-   $$
+$$
+6 T_N + 3 \sum_{n=0}^{N-1} a_n^2 - 4 \sum_{n=0}^{N-1} b_n = 6 a_N^2 + b_N(2b_N + 9) - 32N - 318 \qquad (\forall N \ge 1).
+$$
+
 10. **Part XVI — 2-Adic Bernoulli Isomorphism, Fuss-Catalan Halting Measure $\varphi^{-1}$, & Fibonacci Conservation Laws:** Proves the explicit 2-adic inverse formula $\Phi_L^{-1}(p_0,\dots,p_{L-1}) \equiv \sum_{k=0}^{L-1} 3^{-(k+1)} 2^k p_k \pmod{2^L}$, proves via Raney's Lemma and Lagrange's cubic $z w^3 - w + 1 = 0$ at $z = 1/8$ that the number of first-halting residue classes modulo $2^{3P+1}$ is the Fuss-Catalan number $C_P^{(3)} = \frac{1}{2P+1}\binom{3P}{P}$ and that the **2-adic Haar measure of all halting seeds from counter level $b_0 \ge 0$ is $\mu_2(\mathcal{H}_{\text{all}}(b_0)) = \varphi^{-(b_0+1)}$** (where $\varphi = \frac{1+\sqrt{5}}{2}$ is the Golden Ratio), and derives two exact **Integer Fibonacci Conservation Laws** along any deterministic orbit:
 
-    $$
-    (-1)^{b_N} F_{b_N} = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 1}, \qquad (-1)^{b_N} F_{b_N + 1} - 1 = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 2}.
-    $$
+$$
+(-1)^{b_N} F_{b_N} = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 1}, \qquad (-1)^{b_N} F_{b_N + 1} - 1 = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 2}.
+$$
+
 11. **Part XVII — Tri-Local Adelic Bridge Series $\mathcal{S}(p)$ & Cubic Virial Theorem:** Proves that the single formal series $\mathcal{S}(p) = \sum_{k=0}^\infty \frac{2^k}{3^{k+1}}p_k$ with rational partial sums $\mathcal{S}_N(p) = 8 - (2/3)^N a_N$ converges in $\mathbb{R}$ to $8 - \alpha = R_0 \in (0, 1)$, converges in $\mathbb{Z}_2$ to the integer seed $8 = a_0$, and projects modulo $3^N$ onto $-2^N a_N \pmod{3^N}$. Establishes the **Cubic Virial Theorem** $18\sum_{n=0}^{N-1} b_n^2 p_n = 12\sum_{n=0}^{N-1}(b_n^2 + b_n) - b_N(2b_N^2 - 3b_N - 3) - 2N$.
 12. **Part XVIII — Unconditional Modulo-54 Strengthening & Closed-Form 3-Adic Ballot Sieve Modulo $3^M$:** Proves that at any first halting step $N = 3P + 1 \ge 4$ ($P \ge 1$), non-negativity $b_{N-3} \ge 0$ forces a third consecutive odd step $p_{N-3} = 1$, strengthening Theorem 12.2 unconditionally to **$a_{3P+1} \equiv 1 \pmod{27}$** and **$\Psi(P) = 2(a_{3P+1} - 1) \equiv 0 \pmod{54}$**. Generalizes this to all suffix depths $M \ge 1$, proving that the number of ballot-admissible terminal residue classes $\mathcal{A}_M \subset \mathbb{Z}/3^M\mathbb{Z}$ is given in closed form by $|\mathcal{A}_M| = B_M = \sum_{k=0}^{\lfloor (M-1)/3 \rfloor} \left[\binom{M-1}{k} - 2\binom{M-1}{k-1}\right]$ (yielding $B_1,\dots,B_9 = 1, 1, 1, 2, 3, 4, 8, 13, 19$ and ruling out $725$ of $729$ residue classes modulo $3^6$).
 

@@ -59,33 +59,36 @@ $$
 
 1. **Initialization Phase ($11$ steps):** *Starting from the blank tape $0^\infty \mathbf{A>} 0^\infty$, in exactly $11$ machine steps the initial canonical configuration is reached:*
 
-   $$
-   0^\infty \mathbf{A>} 0^\infty \xrightarrow{11\text{ steps}} 0^\infty \, 1^0 \, 0 \, 1^4 \, \mathbf{E>} \, 0^\infty = \mathcal{A}(0, 4)
-   $$
+$$
+0^\infty \mathbf{A>} 0^\infty \xrightarrow{11\text{ steps}} 0^\infty \, 1^0 \, 0 \, 1^4 \, \mathbf{E>} \, 0^\infty = \mathcal{A}(0, 4)
+$$
+
 2. **High-Level Transition Rules (for $h \ge 4$):** *Every canonical configuration $\mathcal{A}(b, h)$ with $h \ge 4$ evolves deterministically according to the parity of $h$:*
 
    - **If $h = 2k$ is even ($k \ge 2$):** *In $2b + 3k^2 + 12k + 11$ machine steps without ever visiting `F0`, it reaches:*
 
-     $$
-     \mathcal{A}(b, 2k) \longrightarrow \mathcal{A}(b + 2, \, 3k + 2) = \mathcal{A}\left(b + 2, \, \left\lfloor \frac{3h}{2} \right\rfloor + 2\right)
-     $$
+$$
+\mathcal{A}(b, 2k) \longrightarrow \mathcal{A}(b + 2, \, 3k + 2) = \mathcal{A}\left(b + 2, \, \left\lfloor \frac{3h}{2} \right\rfloor + 2\right)
+$$
+
    - **If $h = 2k + 1$ is odd ($k \ge 2$) and $b \ge 1$:** *In $3k^2 + 12k + 5$ machine steps without visiting `F0`, it reaches:*
 
-     $$
-     \mathcal{A}(b, 2k + 1) \longrightarrow \mathcal{A}(b - 1, \, 3k + 3) = \mathcal{A}\left(b - 1, \, \left\lfloor \frac{3h}{2} \right\rfloor + 2\right)
-     $$
+$$
+\mathcal{A}(b, 2k + 1) \longrightarrow \mathcal{A}(b - 1, \, 3k + 3) = \mathcal{A}\left(b - 1, \, \left\lfloor \frac{3h}{2} \right\rfloor + 2\right)
+$$
+
    - **If $h = 2k + 1$ is odd ($k \ge 2$) and $b = 0$:** *In $3k^2 + 9k - 1$ machine steps, the head reaches the configuration $0^\infty \mathbf{<F} \, 1101^{3k} 0^\infty$, reading the symbol $0$ in state* $F$ *(`F0`) and **halting**.*
 3. **Exact Conjugacy with the Shifted Sequence $a_n = h_n + 4$:** *Let $(h_n, b_n)_{n \ge 0}$ be the sequence of parameters of the canonical configurations $\mathcal{A}(b_n, h_n)$ visited successively starting from $(b_0, h_0) = (0, 4)$, with law $h_{n+1} = \lfloor \frac{3h_n}{2} \rfloor + 2$. Defining the translated change of variable:*
 
-   $$
-   a_n := h_n + 4
-   $$
+$$
+a_n := h_n + 4
+$$
 
    *one has $a_0 = 4 + 4 = 8$, the parity is identically preserved ($a_n \bmod 2 = (h_n + 4) \bmod 2 = h_n \bmod 2 =: p_n$), and the recurrence law transforms exactly into:*
 
-   $$
-   a_{n+1} = h_{n+1} + 4 = \left\lfloor \frac{3(a_n - 4)}{2} \right\rfloor + 6 = \left\lfloor \frac{3a_n}{2} - 6 \right\rfloor + 6 = \left\lfloor \frac{3a_n}{2} \right\rfloor
-   $$
+$$
+a_{n+1} = h_{n+1} + 4 = \left\lfloor \frac{3(a_n - 4)}{2} \right\rfloor + 6 = \left\lfloor \frac{3a_n}{2} - 6 \right\rfloor + 6 = \left\lfloor \frac{3a_n}{2} \right\rfloor
+$$
 
    *while the counter $b_n$ (which represents the exponent of the left block $1^{b_n}$ on the tape) evolves according to $b_{n+1} = b_n + 2 - 3p_n$, with the Turing machine halting if and only if at some step $n$ one has $b_n = 0$ with $p_n = 1$, which is equivalent to the counter reaching the value $b_N = -1$ for the first time at $N = n + 1$.*
 
@@ -103,9 +106,9 @@ $$
    - Steps 8 to 11 (shift rule `E1 -> 1RE` applied $4$ times across $1^4$): $0^\infty 1^0 0 1^4 \mathbf{E>} 0^\infty = \mathcal{A}(0, 4)$.
 2. *Elementary shift rules and partial configuration $P(m, n)$:* From the transition table one immediately verifies three block shift rules for every integer $s \ge 0$:
 
-   $$
-   \mathbf{A>} 1^s \xrightarrow{s\text{ steps}} 1^s \mathbf{A>}, \qquad 1^s \mathbf{<C} \xrightarrow{s\text{ steps}} \mathbf{<C} 1^s, \qquad \mathbf{E>} 1^s \xrightarrow{s\text{ steps}} 1^s \mathbf{E>}
-   $$
+$$
+\mathbf{A>} 1^s \xrightarrow{s\text{ steps}} 1^s \mathbf{A>}, \qquad 1^s \mathbf{<C} \xrightarrow{s\text{ steps}} \mathbf{<C} 1^s, \qquad \mathbf{E>} 1^s \xrightarrow{s\text{ steps}} 1^s \mathbf{E>}
+$$
 
    Let us consider the subconfiguration $P(m, n) := 0 1^m \mathbf{E>} 0 1^n 0^\infty$ with $m \ge 4$ and $n \ge 0$:
    *In 2 steps (`E0 -> 1LF`, `F1 -> 0RA`):* $0 1^{m-1} 0 \mathbf{A>} 1^{n+1} 0^\infty$.
@@ -198,9 +201,10 @@ and the number of even steps is $E_N = N - O_N = (3P + 1) - (2P + 1) = P$. Since
 1. *The change of the counter in each triad is $\Delta^{(3)} b_{3k} = b_{3k+3} - b_{3k} = 3(2 - e_k) \in \{+6, +3, 0, -3\}$. If $T_j$ denotes the number of triads with $e_k = j$, then $\frac{b_{3M}}{3} = 2T_0 + T_1 - T_3$, and the necessary halting condition $b_{3M} = 0$ requires $T_3 = 2T_0 + T_1$.*
 2. *The triad weight $W_k = 27a_{3k} - 8a_{3k+3} = 9p_{3k} + 6p_{3k+1} + 4p_{3k+2}$ decomposes exactly by eliminating the central bit $p_{3k+1}$ as:*
 
-   $$
-   W_k = 6e_k + (3p_{3k} - 2p_{3k+2}) = 12 - 2\Delta^{(3)} b_{3k} + 3p_{3k} - 2p_{3k+2}
-   $$
+$$
+W_k = 6e_k + (3p_{3k} - 2p_{3k+2}) = 12 - 2\Delta^{(3)} b_{3k} + 3p_{3k} - 2p_{3k+2}
+$$
+
 3. *Consequently, the linear combination $\Omega_k := (27a_{3k} - 8a_{3k+3}) + 2(b_{3k+3} - b_{3k}) = 12 + 3p_{3k} - 2p_{3k+2}$ can only take values in the finite set $\{10, 12, 13, 15\}$.*
 
 **Proof:**
@@ -239,9 +243,10 @@ $$
 
 1. **Modulo 4 Character Law:** $u_n + \sigma_n \equiv 0 \pmod 4 \iff \sigma_n = -\chi_4(u_n) = -(-1)^{(u_n - 1)/2}$. In terms of $a_n = 4q + r_4$ ($r_4 \in \{0,1,2,3\}$), the parity change $p_n \oplus p_{n+1}$ satisfies exactly:
 
-   $$
-   p_{n+1} \equiv p_n + \left\lfloor \frac{a_n \bmod 4}{2} \right\rfloor \pmod 2 \iff \sigma_{n+1} = (-1)^{\lfloor (a_n \bmod 4)/2 \rfloor} \sigma_n
-   $$
+$$
+p_{n+1} \equiv p_n + \left\lfloor \frac{a_n \bmod 4}{2} \right\rfloor \pmod 2 \iff \sigma_{n+1} = (-1)^{\lfloor (a_n \bmod 4)/2 \rfloor} \sigma_n
+$$
+
 2. **Modulo 8 Spin Transition Equivalence:** $\sigma_{n+1} = \sigma_n \iff u_n + \sigma_n \equiv 0 \pmod 8 \iff a_n \bmod 4 \in \{0, 1\}$, and $\sigma_{n+1} = -\sigma_n \iff u_n + \sigma_n \equiv 4 \pmod 8 \iff a_n \bmod 4 \in \{2, 3\}$.
 
 **Exhaustive Explicit Proof (All Residues Modulo 4 and Modulo 8):**
@@ -294,9 +299,9 @@ Theorem 2.2 (Boolean Cubic Identity of Spin Triads) [Proved]: *In any block of t
 1. $(8u_{n+3} - 27u_n)^2 = 133 + 108\sigma_n\sigma_{n+1} + 72\sigma_n\sigma_{n+2} + 48\sigma_{n+1}\sigma_{n+2}$.
 2. *The sign $\operatorname{sgn}(8u_{n+3} - 27u_n)$ always coincides with the majority sign* $\operatorname{sgn}(\sigma_n + \sigma_{n+1} + \sigma_{n+2}) \in \{-1, +1\}$*, and the **Exact Boolean Cubic Identity** holds:*
 
-   $$
-   \sigma_n + \sigma_{n+1} + \sigma_{n+2} = 2\operatorname{sgn}(8u_{n+3} - 27u_n) + \sigma_n \sigma_{n+1} \sigma_{n+2}
-   $$
+$$
+\sigma_n + \sigma_{n+1} + \sigma_{n+2} = 2\operatorname{sgn}(8u_{n+3} - 27u_n) + \sigma_n \sigma_{n+1} \sigma_{n+2}
+$$
 
 **Proof:**
 Since $6 + 4 = 10 > 9$, if at least two spins in the triad equal $+1$, then $9\sigma_n + 6\sigma_{n+1} + 4\sigma_{n+2} \ge -9 + 6 + 4 = +1 > 0$; and if at least two equal $-1$, the sum is $\le +9 - 6 - 4 = -1 < 0$. Evaluating $\sigma_n + \sigma_{n+1} + \sigma_{n+2} - \sigma_n\sigma_{n+1}\sigma_{n+2}$ on the 8 triads of $\{-1, +1\}^3$, it equals $+2$ when there are two or three $+1$'s and equals $-2$ when there are two or three $-1$'s, coinciding identically with $2\operatorname{sgn}(8u_{n+3} - 27u_n)$. $\blacksquare$
@@ -308,9 +313,10 @@ Since $6 + 4 = 10 > 9$, if at least two spins in the triad equal $+1$, then $9\s
 1. $\mathcal{J}$ *inverts the parity of every state:* $(1 - a) \bmod 2 = 1 - (a \bmod 2)$.
 2. $\mathcal{J}$ *commutes exactly with the Antihydra operator $T$:*
 
-   $$
-   T(1 - a) = 1 - T(a) \qquad \forall a \in \mathbb{Z}_2
-   $$
+$$
+T(1 - a) = 1 - T(a) \qquad \forall a \in \mathbb{Z}_2
+$$
+
 3. *For every $k \ge 1$, $T^k(1 - a) = 1 - T^k(a)$. If a state $a \in \mathbb{Z}_2$ generates the infinite sequence of parity bits $(p_0, p_1, p_2, \dots)$, the reflected state $1 - a$ generates the exact complementary sequence $(1 - p_0, 1 - p_1, 1 - p_2, \dots)$.*
 
 **Proof:**
@@ -347,27 +353,28 @@ $$
 - **During even phase $i$ (of duration $r_i \ge 1$):**
   The state at the start of the cycle at step $N_{i-1}$ factors uniquely in $\mathbb{Z}_{\ge 2}$ by extracting its maximal power of $2$:
 
-  $$
-  a_{N_{i-1}} = 2^{r_i} c_i, \qquad \text{with } c_i \in \mathbb{Z}_{\ge 1}, \quad c_i \equiv 1 \pmod 2 \text{ (entry odd core)}
-  $$
+$$
+a_{N_{i-1}} = 2^{r_i} c_i, \qquad \text{with } c_i \in \mathbb{Z}_{\ge 1}, \quad c_i \equiv 1 \pmod 2 \text{ (entry odd core)}
+$$
 
   After $r_i$ multiplications by $3/2$, the state at the peak of the cycle (step $t_i$) is the odd integer:
 
-  $$
-  a_{t_i} = 3^{r_i} c_i
-  $$
+$$
+a_{t_i} = 3^{r_i} c_i
+$$
+
 - **During odd phase $i$ (of duration $m_i \ge 1$):**
   Factoring the positive even integer $a_{t_i} - 1 = 3^{r_i} c_i - 1 \ge 26$:
 
-  $$
-  a_{t_i} - 1 = 3^{r_i} c_i - 1 = 2^{m_i} d_i, \qquad \text{with } d_i \in \mathbb{Z}_{\ge 1}, \quad d_i \equiv 1 \pmod 2 \text{ (valley odd core)}
-  $$
+$$
+a_{t_i} - 1 = 3^{r_i} c_i - 1 = 2^{m_i} d_i, \qquad \text{with } d_i \in \mathbb{Z}_{\ge 1}, \quad d_i \equiv 1 \pmod 2 \text{ (valley odd core)}
+$$
 
   After these $m_i$ odd steps, at time $N_i = t_i + m_i$, the state reaches the even number that initiates cycle $i+1$:
 
-  $$
-  a_{N_i} = 3^{m_i} d_i + 1 = 2^{r_{i+1}} c_{i+1}
-  $$
+$$
+a_{N_i} = 3^{m_i} d_i + 1 = 2^{r_{i+1}} c_{i+1}
+$$
 
 ### 3.3. Theorem of the Four Exact Valuation Laws (2-adic and 3-adic Symmetry)
 
@@ -450,38 +457,39 @@ $$
 1. *The series $\sum_{k=0}^{\infty} \frac{2^k}{3^{k+1}} p_k$ is dominated term-by-term by the convergent geometric series $\frac{1}{3}\sum_{k=0}^\infty (2/3)^k = 1$, so it converges absolutely to a real number* $\alpha = \lim_{n\to\infty} \alpha_n \in [7, 8]$ *(the **Antihydra Constant**).*
 2. *For any integer truncation horizon $M \ge 1$, the excess error $\alpha_M - \alpha$ satisfies the rigorous bound:*
 
-   $$
-   0 < \alpha_M - \alpha = \sum_{k=M}^{\infty} \frac{2^k}{3^{k+1}} p_k < \frac{1}{3} \sum_{k=M}^{\infty} \left(\frac{2}{3}\right)^k = \left(\frac{2}{3}\right)^M
-   $$
+$$
+0 < \alpha_M - \alpha = \sum_{k=M}^{\infty} \frac{2^k}{3^{k+1}} p_k < \frac{1}{3} \sum_{k=M}^{\infty} \left(\frac{2}{3}\right)^k = \left(\frac{2}{3}\right)^M
+$$
 
    *In particular, for $M = 300$, the exact value of the geometric bound is:*
 
-   $$
-   \left(\frac{2}{3}\right)^{300} \approx 1.4880663064957113 \times 10^{-53} < 1.49 \times 10^{-53}
-   $$
+$$
+\left(\frac{2}{3}\right)^{300} \approx 1.4880663064957113 \times 10^{-53} < 1.49 \times 10^{-53}
+$$
 
    *Evaluating $\alpha_{300} = (2/3)^{300} a_{300}$ with exact rational arithmetic yields:*
 
-   $$
-   \alpha_{300} = 7.8641772620566189724051685296822813853074242517735940028\dots
-   $$
+$$
+\alpha_{300} = 7.8641772620566189724051685296822813853074242517735940028\dots
+$$
 
    *Since $\alpha_{300} - 1.49 \times 10^{-53} < \alpha < \alpha_{300}$ and the decimal digits from position $1$ to position $52$ after the decimal point of $\alpha_{300}$ (`...735940...`) undergo no borrows when subtracting $1.49 \times 10^{-53}$ (which affects only from decimal position* $53$ *onward), the first **50 decimal digits after the decimal point** are rigorously certified and immutable as:*
 
-   $$
-   \alpha = 8 - \sum_{k=0}^{\infty} \frac{2^k}{3^{k+1}} p_k = 7.86417726205661897240516852968228138530742425177359\dots
-   $$
+$$
+\alpha = 8 - \sum_{k=0}^{\infty} \frac{2^k}{3^{k+1}} p_k = 7.86417726205661897240516852968228138530742425177359\dots
+$$
+
 3. *For every integer $n \ge 0$, the Archimedean residual defect:*
 
-   $$
-   R_n := a_n - \alpha\left(\frac{3}{2}\right)^n = \sum_{j=0}^{\infty} \frac{2^j}{3^{j+1}} p_{n+j}
-   $$
+$$
+R_n := a_n - \alpha\left(\frac{3}{2}\right)^n = \sum_{j=0}^{\infty} \frac{2^j}{3^{j+1}} p_{n+j}
+$$
 
    *satisfies the strict inequality $0 < R_n < 1$. In particular, $\alpha(3/2)^n \notin \mathbb{Z}$ for all $n \ge 0$, so the integer boundary values are never attained, and the exact identities hold simultaneously for all $n \ge 0$:*
 
-   $$
-   a_n = \left\lceil \alpha \left(\frac{3}{2}\right)^n \right\rceil, \qquad a_n - 1 = \left\lfloor \alpha \left(\frac{3}{2}\right)^n \right\rfloor
-   $$
+$$
+a_n = \left\lceil \alpha \left(\frac{3}{2}\right)^n \right\rceil, \qquad a_n - 1 = \left\lfloor \alpha \left(\frac{3}{2}\right)^n \right\rfloor
+$$
 
 **Proof of (3) (Rigorous Exclusion of the Endpoints $R_n = 0$ and $R_n = 1$):**
 Since $p_{n+j} \in \{0, 1\}$ and $\sum_{j=0}^\infty \frac{2^j}{3^{j+1}} = 1$, we have $0 \le R_n \le 1$.
@@ -496,16 +504,16 @@ Since $p_{n+j} \in \{0, 1\}$ and $\sum_{j=0}^\infty \frac{2^j}{3^{j+1}} = 1$, we
 
 1. *The exponential part $\alpha(3/2)^n$ vanishes identically in the difference operator $2a_{n+1} - 3a_n = -p_n$, leaving:*
 
-   $$
-   2R_{n+1} - 3R_n = -p_n \iff R_n = \frac{p_n}{3} + \frac{2}{3}R_{n+1}
-   $$
+$$
+2R_{n+1} - 3R_n = -p_n \iff R_n = \frac{p_n}{3} + \frac{2}{3}R_{n+1}
+$$
 
    *which partitions the interval $(0, 1)$ into two regimes: if $p_n = 0 \implies R_n \in (0, 2/3)$, and if $p_n = 1 \implies R_n \in (1/3, 1)$.*
 2. *Substituting $p_k = 3R_k - 2R_{k+1}$ into $b_N = \sum_{k=0}^{N-1}(2 - 3p_k)$, the counter satisfies the exact identity:*
 
-   $$
-   b_N = \sum_{k=0}^{N-1} (2 - 3R_k) + 6(R_N - R_0) > \sum_{k=0}^{N-1} (2 - 3R_k) - 1
-   $$
+$$
+b_N = \sum_{k=0}^{N-1} (2 - 3R_k) + 6(R_N - R_0) > \sum_{k=0}^{N-1} (2 - 3R_k) - 1
+$$
 
    *(where the last inequality uses $R_0 = 8 - \alpha \approx 0.1358227379\dots < 1/6$ and $R_N > 0$, whence $6(R_N - R_0) > -6R_0 > -1$).*
 
@@ -523,28 +531,31 @@ $$
 
 1. **Counter Integral Invariant ($44 \cdot 3^n$):**
 
-   $$
-   44 \cdot 3^n + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k b_k = 2^n (6a_n - b_n - 4) = 2^n Q_n
-   $$
+$$
+44 \cdot 3^n + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k b_k = 2^n (6a_n - b_n - 4) = 2^n Q_n
+$$
+
 2. **Positive Odd Integral Invariant ($16 \cdot 3^n$):**
 
-   $$
-   16 \cdot 3^n = 2^n (2a_n + O_n) + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k O_k
-   $$
+$$
+16 \cdot 3^n = 2^n (2a_n + O_n) + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k O_k
+$$
+
 3. **Even Integral Invariant ($14 \cdot 3^n$):**
 
-   $$
-   14 \cdot 3^n + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k E_k = 2^n (2a_n - E_n - 2)
-   $$
+$$
+14 \cdot 3^n + \sum_{k=1}^{n-1} 3^{n-1-k} 2^k E_k = 2^n (2a_n - E_n - 2)
+$$
+
 4. **Area-Parity Relation Theorem (with initial term $Z_0 = 22$ included):**
 
-   $$
-   O_N = 24 - 2a_N + \sum_{k=1}^{N-1} a_k = 16 - 2a_N + \sum_{k=0}^{N-1} a_k
-   $$
+$$
+O_N = 24 - 2a_N + \sum_{k=1}^{N-1} a_k = 16 - 2a_N + \sum_{k=0}^{N-1} a_k
+$$
 
-   $$
-   b_N = 2N + 6(a_N - 8) - 3 \sum_{k=0}^{N-1} a_k = 2Z_N - 44 - \sum_{k=0}^{N-1} Z_k = 2Z_N - 66 - \sum_{k=1}^{N-1} Z_k
-   $$
+$$
+b_N = 2N + 6(a_N - 8) - 3 \sum_{k=0}^{N-1} a_k = 2Z_N - 44 - \sum_{k=0}^{N-1} Z_k = 2Z_N - 66 - \sum_{k=1}^{N-1} Z_k
+$$
 
 **Complete Proof (including the derivation in terms of $Z_k$ and check at $N = 1$):**
 Eliminating $p_k$ between $3a_k - 2a_{k+1} = p_k$ and $b_{k+1} - b_k = 2 - 3p_k$, we obtain $2Q_{k+1} - 3Q_k = b_k$ with $Q_0 = 44$. Multiplying by $3^{n-1-k} 2^k$ and summing from $k = 0$ to $n - 1$ (with $b_0 = 0$) yields (1). Substituting $b_k = 2k - 3O_k$ and $b_k = 3E_k - k$ together with the geometric identity $\sum_{k=1}^{n-1} 3^{n-1-k} 2^k k = 2 \cdot 3^n - 2^n(n + 2)$ yields (2) and (3).
@@ -598,28 +609,28 @@ $$
 
 1. **Explicit dominating bound and comparison/ratio test:** By definition, for all $k \ge 1$, since $p_m \in \{0, 1\}$, the accumulators satisfy the deterministic linear bounds:
 
-   $$
-   0 \le O_k \le k, \qquad 0 \le E_k \le k, \qquad |b_k| = |2E_k - O_k| \le 2k
-   $$
+$$
+0 \le O_k \le k, \qquad 0 \le E_k \le k, \qquad |b_k| = |2E_k - O_k| \le 2k
+$$
 
    Consequently, the general term in absolute value of the series is explicitly majorized by:
 
-   $$
-   \left| \left(\frac{2}{3}\right)^k b_k \right| \le 2k \left(\frac{2}{3}\right)^k, \qquad \left| \left(\frac{2}{3}\right)^j b_{n+j} \right| \le 2(n + j) \left(\frac{2}{3}\right)^j
-   $$
+$$
+\left| \left(\frac{2}{3}\right)^k b_k \right| \le 2k \left(\frac{2}{3}\right)^k, \qquad \left| \left(\frac{2}{3}\right)^j b_{n+j} \right| \le 2(n + j) \left(\frac{2}{3}\right)^j
+$$
 
    Applying **D'Alembert's ratio test** to the majorizing series of positive terms $\sum_{k=1}^\infty 2k(2/3)^k$:
 
-   $$
-   \lim_{k \to \infty} \frac{2(k+1)(2/3)^{k+1}}{2k(2/3)^k} = \frac{2}{3} \lim_{k \to \infty} \left(1 + \frac{1}{k}\right) = \frac{2}{3} < 1
-   $$
+$$
+\lim_{k \to \infty} \frac{2(k+1)(2/3)^{k+1}}{2k(2/3)^k} = \frac{2}{3} \lim_{k \to \infty} \left(1 + \frac{1}{k}\right) = \frac{2}{3} < 1
+$$
 
    By the Weierstrass comparison test, all series considered are **absolutely convergent** (with majorizing sum $\sum_{k=1}^\infty 2k(2/3)^k = 2 \cdot \frac{2/3}{(1 - 2/3)^2} = 12 < \infty$).
 2. **Proof of the identities:** Dividing the Integral Invariant (Theorem 5.1(1)) by $6 \cdot 3^n$:
 
-   $$
-   \frac{22}{3} + \frac{1}{18} \sum_{k=1}^{n-1} \left(\frac{2}{3}\right)^k b_k = \left(\frac{2}{3}\right)^n a_n - \frac{b_n + 4}{6}\left(\frac{2}{3}\right)^n
-   $$
+$$
+\frac{22}{3} + \frac{1}{18} \sum_{k=1}^{n-1} \left(\frac{2}{3}\right)^k b_k = \left(\frac{2}{3}\right)^n a_n - \frac{b_n + 4}{6}\left(\frac{2}{3}\right)^n
+$$
 
    Since $|b_n + 4| \le 2n + 4$, we have $\lim_{n\to\infty} \frac{b_n + 4}{6}(2/3)^n = 0$ and $\lim_{n\to\infty} (2/3)^n a_n = \alpha$, obtaining the first identity. Subtracting its partial sum up to $n$ from the infinite series and multiplying by $18 \cdot (3/2)^n$, since $18\left(\alpha(3/2)^n - a_n\right) = -18R_n$, we obtain $2b_n + 12 - 18R_n = \sum_{j=1}^\infty (2/3)^j b_{n+j}$. $\blacksquare$
 
@@ -702,9 +713,9 @@ $$
    - *Base case ($n = 0$):* By hypothesis, $u_0 = 15 = 2(8) - 1 = 2a_0 - 1$, which is odd.
    - *Inductive step ($0 \le n \le N-2$):* Suppose it is proved that $u_n = 2a_n - 1$ (odd). The two rational solutions of $(2u_{n+1} - 3u_n)^2 = 1$ are:
 
-     $$
-     u_{n+1}^{(+)} = \frac{3u_n + 1}{2}, \qquad u_{n+1}^{(-)} = \frac{3u_n - 1}{2} = u_{n+1}^{(+)} - 1
-     $$
+$$
+u_{n+1}^{(+)} = \frac{3u_n + 1}{2}, \qquad u_{n+1}^{(-)} = \frac{3u_n - 1}{2} = u_{n+1}^{(+)} - 1
+$$
 
      Since $u_n$ is odd, both $3u_n + 1$ and $3u_n - 1$ are even, so $u_{n+1}^{(+)}$ and $u_{n+1}^{(-)}$ are **two consecutive integers** in $\mathbb{Z}$. Being consecutive, exactly one of them is odd and the other is even. Since $n \le N-2$, the index $n+1$ satisfies $n+1 \le N-1$, so the equation of the next step $(2u_{n+2} - 3u_{n+1})^2 = 1$ requires, by part (1), that $u_{n+1}$ be **odd**.
      Specifically, for $\frac{3u_n + s_n}{2} \equiv 1 \pmod 2$ to hold, we require $3u_n + s_n \equiv 2 \pmod 4 \iff u_n + s_n \equiv 0 \pmod 4 \iff s_n = -\chi_4(u_n) = \sigma_n$ (by Theorem 2.1). Thus, $u_{n+1}$ is uniquely forced to be $u_{n+1} = \frac{3u_n + \sigma_n}{2} = 2a_{n+1} - 1$.
@@ -732,23 +743,23 @@ Proposition 8.1 (Domains of Definition and Continuity of the Local Operators) [P
 
 1. **2-adic Dynamical Operator $T_2: \mathbb{Z}_2 \to \mathbb{Z}_2$:** The parity function $p_2: \mathbb{Z}_2 \to \{0, 1\} \subset \mathbb{Z}_2$, $p_2(x) = x \bmod 2$, is constant on the clopen balls $2\mathbb{Z}_2$ and $1 + 2\mathbb{Z}_2$ of radius $2^{-1}$, and is therefore continuous. For all $x \in \mathbb{Z}_2$, we have $3x - p_2(x) \in 2\mathbb{Z}_2$, so $T_2(x) = \frac{3x - p_2(x)}{2}$ is well-defined from $\mathbb{Z}_2$ into $\mathbb{Z}_2$. Moreover, if $|x - x'|_2 \le 2^{-k}$ ($k \ge 1$), then $p_2(x) = p_2(x')$ and:
 
-   $$
-   |T_2(x) - T_2(x')|_2 = \left|\frac{3(x - x')}{2}\right|_2 = \frac{|3|_2}{|2|_2}|x - x'|_2 = 2|x - x'|_2 \le 2^{-(k-1)}
-   $$
+$$
+|T_2(x) - T_2(x')|_2 = \left|\frac{3(x - x')}{2}\right|_2 = \frac{|3|_2}{|2|_2}|x - x'|_2 = 2|x - x'|_2 \le 2^{-(k-1)}
+$$
 
    Therefore, $T_2$ is **uniformly continuous** (locally $2$-Lipschitz) on $(\mathbb{Z}_2, |\cdot|_2)$.
 2. **Affine Branch Operators on $\mathbb{Z}_3$ and Inverse Operator $S_3$:** Since $2 \in \mathbb{Z}_3^\times$ is a 3-adic unit ($|2|_3 = 1$, with inverse $2^{-1} = \frac{1}{2} = \sum_{j=0}^\infty 3^j \in \mathbb{Z}_3$), for each fixed $p \in \{0, 1\}$ the affine branch operator $T_{3,p}: \mathbb{Z}_3 \to \mathbb{Z}_3$, $T_{3,p}(y) = 2^{-1}(3y - p)$, is well-defined on all of $\mathbb{Z}_3$ and is a **strict contraction** with Lipschitz constant $\frac{1}{3}$:
 
-   $$
-   |T_{3,p}(y) - T_{3,p}(y')|_3 = |2^{-1} \cdot 3(y - y')|_3 = \frac{1}{3}|y - y'|_3
-   $$
+$$
+|T_{3,p}(y) - T_{3,p}(y')|_3 = |2^{-1} \cdot 3(y - y')|_3 = \frac{1}{3}|y - y'|_3
+$$
 
    Conversely, on the compact open (clopen) subset of admissible states $\mathcal{U}_3 := 3\mathbb{Z}_3 \cup (1 + 3\mathbb{Z}_3) \subset \mathbb{Z}_3$, defining the continuous selector $r_3(y) \in \{0, 1\}$ by $y \equiv r_3(y) \pmod{3\mathbb{Z}_3}$, we have $2y + r_3(y) \in 3\mathbb{Z}_3$, and the inverse operator $S_3: \mathcal{U}_3 \to \mathbb{Z}_3$, $S_3(y) = \frac{2y + r_3(y)}{3}$, is **uniformly continuous** ($|S_3(y) - S_3(y')|_3 = 3|y - y'|_3$ for $|y - y'|_3 \le 3^{-1}$).
 3. **Compatibility on $\mathbb{Z}$ and Projective Matrix Representation:** For all $n \ge 0$, on the integer orbit $\iota(a_n) = (a_n, a_n, a_n)$ we have $T_2(a_n) = T_{3, p_n}(a_n) = a_{n+1}$ and $S_3(a_{n+1}) = a_n$. The homogeneous step is written in matrix form in $\operatorname{GL}_2(\mathbb{Q}_2) \times \operatorname{GL}_2(\mathbb{Q}_3)$ as:
 
-   $$
-   \begin{pmatrix} 2^n a_n \\ 2^n \end{pmatrix} = A_{p_{n-1}} A_{p_{n-2}} \cdots A_{p_0} \begin{pmatrix} 8 \\ 1 \end{pmatrix}, \qquad A_p = \begin{pmatrix} 3 & -p \\ 0 & 2 \end{pmatrix}
-   $$
+$$
+\begin{pmatrix} 2^n a_n \\ 2^n \end{pmatrix} = A_{p_{n-1}} A_{p_{n-2}} \cdots A_{p_0} \begin{pmatrix} 8 \\ 1 \end{pmatrix}, \qquad A_p = \begin{pmatrix} 3 & -p \\ 0 & 2 \end{pmatrix}
+$$
 
 ### 8.2. Finite-Difference Binomial Transform $\Delta^L$ (Mahler-Newton Filter)
 
@@ -757,9 +768,9 @@ Proposition 8.1 (Domains of Definition and Continuity of the Local Operators) [P
 1. $2^L (\Delta^L a)_m = a_m - \sum_{r=0}^{L-1} 2^r (\Delta^r p)_m$.
 2. *Applied to the Archimedean decomposition $a_m = \alpha(3/2)^m + R_m$ in $(\mathbb{R}, |\cdot|_\infty)$, the operator $\Delta^L$ divides the exponential component by $2^L$:*
 
-   $$
-   (\Delta^L a)_m = \alpha \frac{3^m}{2^{m+L}} + (\Delta^L R)_m
-   $$
+$$
+(\Delta^L a)_m = \alpha \frac{3^m}{2^{m+L}} + (\Delta^L R)_m
+$$
 
    *In particular, evaluated at $m = 0$ it decays with base $\frac{1}{2}$ as $(\Delta^L a)_0 = \alpha\left(\frac{1}{2}\right)^L + (\Delta^L R)_0$, whereas along the diagonal $L = m$ (at instant $m$) the leading term decays geometrically with base $\frac{3}{4} < 1$: $(\Delta^m a)_m = \alpha\left(\frac{3}{4}\right)^m + (\Delta^m R)_m$.*
 
@@ -767,22 +778,22 @@ Proposition 8.1 (Domains of Definition and Continuity of the Local Operators) [P
 
 1. *Base case ($L = 1$):* From $2a_{m+1} = 3a_m - p_m$, subtracting $2a_m$ from both sides gives:
 
-   $$
-   2(\Delta a)_m = 2(a_{m+1} - a_m) = a_m - p_m = a_m - 2^0(\Delta^0 p)_m
-   $$
+$$
+2(\Delta a)_m = 2(a_{m+1} - a_m) = a_m - p_m = a_m - 2^0(\Delta^0 p)_m
+$$
 
    which verifies (1) for $L = 1$.
    *Inductive step ($L \to L + 1$):* Suppose the identity $2^L(\Delta^L a)_m = a_m - \sum_{r=0}^{L-1} 2^r(\Delta^r p)_m$ holds for all $m \ge 0$. Applying the linear operator $\Delta$ to both sides and multiplying by $2$:
 
-   $$
-   2^{L+1}(\Delta^{L+1} a)_m = 2(\Delta a)_m - \sum_{r=0}^{L-1} 2^{r+1}(\Delta^{r+1} p)_m
-   $$
+$$
+2^{L+1}(\Delta^{L+1} a)_m = 2(\Delta a)_m - \sum_{r=0}^{L-1} 2^{r+1}(\Delta^{r+1} p)_m
+$$
 
    Substituting $2(\Delta a)_m = a_m - p_m = a_m - 2^0(\Delta^0 p)_m$ and reindexing the sum with $j = r + 1 \in \{1, \dots, L\}$:
 
-   $$
-   2^{L+1}(\Delta^{L+1} a)_m = a_m - 2^0(\Delta^0 p)_m - \sum_{j=1}^L 2^j(\Delta^j p)_m = a_m - \sum_{j=0}^L 2^j(\Delta^j p)_m
-   $$
+$$
+2^{L+1}(\Delta^{L+1} a)_m = a_m - 2^0(\Delta^0 p)_m - \sum_{j=1}^L 2^j(\Delta^j p)_m = a_m - \sum_{j=0}^L 2^j(\Delta^j p)_m
+$$
 
    which completes the induction.
 2. For the geometric sequence $g_m = (3/2)^m$, we have $(\Delta g)_m = (3/2)^{m+1} - (3/2)^m = \frac{1}{2}(3/2)^m = \frac{1}{2}g_m$. By immediate induction, $(\Delta^L g)_m = 2^{-L} g_m = \frac{3^m}{2^{m+L}}$. By linearity of $\Delta^L$ applied to $a_m = \alpha g_m + R_m$, we obtain $(\Delta^L a)_m = \alpha \frac{3^m}{2^{m+L}} + (\Delta^L R)_m$. Evaluating at $m = 0$ yields $(\Delta^L a)_0 = \alpha\left(\frac{1}{2}\right)^L + (\Delta^L R)_0$, while along the diagonal $L = m$ at instant $m$ we obtain $(\Delta^m a)_m = \alpha \frac{3^m}{2^{2m}} + (\Delta^m R)_m = \alpha\left(\frac{3}{4}\right)^m + (\Delta^m R)_m$. $\blacksquare$
@@ -803,24 +814,25 @@ $$
 2. **Strict Boundedness in $[0, 3^M - 2^M]$:** $0 \le W_{k, M} \le 3^M - 2^M < 3^M$.
 3. **Bimodular Coupling Without Representative Ambiguity:**
 
-   $$
-   W_{k, M} = \left( -2^M a_{k+M} \right) \bmod 3^M \qquad \text{and} \qquad W_{k, M} \equiv 3^M a_k \pmod{2^M}
-   $$
+$$
+W_{k, M} = \left( -2^M a_{k+M} \right) \bmod 3^M \qquad \text{and} \qquad W_{k, M} \equiv 3^M a_k \pmod{2^M}
+$$
 
 **Complete Proof:**
 
 1. We proceed by induction on $M \ge 1$. For $M = 1$, $W_{k, 1} = p_k$ and the equation $2a_{k+1} = 3a_k - p_k$ is the definition of the operator. Suppose that $2^M a_{k+M} = 3^M a_k - W_{k, M}$. Multiplying by $3$ and substituting $3a_{k+M} = 2a_{k+M+1} + p_{k+M}$:
 
-   $$
-   2^M (2a_{k+M+1} + p_{k+M}) = 3^{M+1} a_k - 3W_{k, M} \implies 2^{M+1} a_{k+M+1} = 3^{M+1} a_k - \left(3W_{k, M} + 2^M p_{k+M}\right)
-   $$
+$$
+2^M (2a_{k+M+1} + p_{k+M}) = 3^{M+1} a_k - 3W_{k, M} \implies 2^{M+1} a_{k+M+1} = 3^{M+1} a_k - \left(3W_{k, M} + 2^M p_{k+M}\right)
+$$
 
    Since $3W_{k, M} + 2^M p_{k+M} = \sum_{i=0}^{M-1} 3^{M-i} 2^i p_{k+i} + 3^0 2^M p_{k+M} = W_{k, M+1}$, (1) is proved.
 2. Since $p_{k+i} \in \{0, 1\}$ for all $i$, we have $W_{k, M} \ge 0$ and:
 
-   $$
-   W_{k, M} \le \sum_{i=0}^{M-1} 3^{M-1-i} 2^i = 3^{M-1} \sum_{i=0}^{M-1} \left(\frac{2}{3}\right)^i = 3^{M-1} \frac{1 - (2/3)^M}{1 - 2/3} = 3^M - 2^M < 3^M
-   $$
+$$
+W_{k, M} \le \sum_{i=0}^{M-1} 3^{M-1-i} 2^i = 3^{M-1} \sum_{i=0}^{M-1} \left(\frac{2}{3}\right)^i = 3^{M-1} \frac{1 - (2/3)^M}{1 - 2/3} = 3^M - 2^M < 3^M
+$$
+
 3. Reducing the integer equality $W_{k, M} = 3^M a_k - 2^M a_{k+M}$ modulo $3^M$, the term $3^M a_k$ vanishes and we are left with $W_{k, M} \equiv -2^M a_{k+M} \pmod{3^M}$. Since by part (2) the integer $W_{k, M}$ belongs to the canonical remainder interval $[0, 3^M - 2^M] \subset [0, 3^M - 1]$, $W_{k, M}$ is the exact canonical remainder $(-2^M a_{k+M}) \bmod 3^M$. Reducing the same equality modulo $2^M$, the term $-2^M a_{k+M}$ vanishes and we obtain $W_{k, M} \equiv 3^M a_k \pmod{2^M}$. $\blacksquare$
 
 ### 9.2. The Base $2 \leftrightarrow$ Base $3$ Reciprocity Identity, Injectivity via 2-adic Valuation, and 3-adic Measure
@@ -829,37 +841,38 @@ $$
 
 1. **Exact Reciprocity and Extinction of the Class $2 \pmod 3$:** *For every step $n \ge 1$, since $3a_{n-1} - 2a_n = p_{n-1} \implies a_n \equiv -2a_n \equiv p_{n-1} \pmod 3$, the residue modulo $3$ of the current state $a_n$ is identical to the binary parity bit of the previous step $a_{n-1}$:*
 
-   $$
-   a_n \bmod 3 = a_{n-1} \bmod 2 = p_{n-1} \in \{0, 1\} \qquad \forall n \ge 1
-   $$
+$$
+a_n \bmod 3 = a_{n-1} \bmod 2 = p_{n-1} \in \{0, 1\} \qquad \forall n \ge 1
+$$
 
    *Consequently, the residue class $a_n \equiv 2 \pmod 3$ is permanently extinguished for all $n \ge 1$, and $O_N = \sum_{n=0}^{N-1} (a_n \bmod 2) = \sum_{n=1}^{N} (a_n \bmod 3)$.*
 2. **Formal Definition, Injectivity via 2-adic Valuation, and Exact Cardinality $|\mathcal{R}_M| = 2^M$:** *For each integer $M \ge 1$, let $\Phi_M: \{0, 1\}^M \to \mathbb{Z}$ be the polynomial map defined on binary words $\mathbf{q} = (q_0, q_1, \dots, q_{M-1}) \in \{0, 1\}^M$ by:*
 
-   $$
-   \Phi_M(\mathbf{q}) := \sum_{i=0}^{M-1} 3^{M-1-i} 2^i q_i \in [0, 3^M - 2^M]
-   $$
+$$
+\Phi_M(\mathbf{q}) := \sum_{i=0}^{M-1} 3^{M-1-i} 2^i q_i \in [0, 3^M - 2^M]
+$$
 
    *and let $\Psi_M: \{0, 1\}^M \to \mathbb{Z}/3^M\mathbb{Z}$ be the modular map* $\Psi_M(\mathbf{q}) := (-2^M)^{-1} \Phi_M(\mathbf{q}) \bmod 3^M$*, whose image is the **set of admissible residue classes of level*** $M$*:*
 
-   $$
-   \mathcal{R}_M := \operatorname{Im}(\Psi_M) = \left\{ (-2^M)^{-1} \Phi_M(\mathbf{q}) \bmod 3^M : \mathbf{q} \in \{0, 1\}^M \right\} \subset \mathbb{Z}/3^M\mathbb{Z}
-   $$
+$$
+\mathcal{R}_M := \operatorname{Im}(\Psi_M) = \left\{ (-2^M)^{-1} \Phi_M(\mathbf{q}) \bmod 3^M : \mathbf{q} \in \{0, 1\}^M \right\} \subset \mathbb{Z}/3^M\mathbb{Z}
+$$
 
    *Then $\Phi_M$ and* $\Psi_M$ *are **strictly injective**, and the cardinality of* $\mathcal{R}_M$ *is exactly:*
 
-   $$
-   |\mathcal{R}_M| = 2^M \quad \text{(of the } 3^M \text{ possible congruence classes in } \mathbb{Z}/3^M\mathbb{Z}\text{)}
-   $$
+$$
+|\mathcal{R}_M| = 2^M \quad \text{(of the } 3^M \text{ possible congruence classes in } \mathbb{Z}/3^M\mathbb{Z}\text{)}
+$$
 
    *with $(a_n \bmod 3^M) \in \mathcal{R}_M$ holding for all $n \ge M$.*
 3. **3-adic Haar Measure vs. Cardinality of the Cylinder Sets $\mathcal{C}_M$ and the Limit $\mathcal{C}_\infty \subset \mathbb{Z}_3$:** *Let $\pi_M: \mathbb{Z}_3 \to \mathbb{Z}/3^M\mathbb{Z}$ be the continuous canonical projection. We define the compact open (clopen) cylinder of level $M$ in $\mathbb{Z}_3$ as $\mathcal{C}_M := \pi_M^{-1}(\mathcal{R}_M) = \bigsqcup_{r \in \mathcal{R}_M} (r + 3^M\mathbb{Z}_3)$ and the 3-adic Cantor Set as the decreasing intersection $\mathcal{C}_\infty := \bigcap_{M=1}^\infty \mathcal{C}_M \subset \mathbb{Z}_3$. Then:*
 
    - **Haar Measure:** *Since $\mathcal{C}_M$ is the disjoint union of $|\mathcal{R}_M| = 2^M$ balls of measure $3^{-M}$, its measure is $\mu_3(\mathcal{C}_M) = 2^M \cdot 3^{-M} = (2/3)^M$. By upper continuity of the Borel measure on the nested sequence $\mathcal{C}_{M+1} \subset \mathcal{C}_M$:*
 
-     $$
-     \mu_3(\mathcal{C}_\infty) = \lim_{M \to \infty} \mu_3(\mathcal{C}_M) = \lim_{M \to \infty} \left(\frac{2}{3}\right)^M = 0
-     $$
+$$
+\mu_3(\mathcal{C}_\infty) = \lim_{M \to \infty} \mu_3(\mathcal{C}_M) = \lim_{M \to \infty} \left(\frac{2}{3}\right)^M = 0
+$$
+
    - **Asymptotic Density in $\mathbb{Z}$:** *For each fixed $M \ge 1$, the periodic set of ordinary integers $\mathcal{C}_M \cap \mathbb{Z}$ consists of $2^M$ classes modulo $3^M$, and therefore has natural (asymptotic) density in $\mathbb{Z}$ equal to $(2/3)^M$.*
    - **Cardinality:** *Whereas the tail of the integer trajectory $\{a_n\}_{n \ge M} \subset \mathcal{C}_M \cap \mathbb{Z}$ is a countably infinite set ($\operatorname{card} = \aleph_0$), the 3-adic limit set $\mathcal{C}_\infty = \varprojlim \mathcal{R}_M \cong \{0, 1\}^{\mathbb{N}_0}$ is homeomorphic to the ternary Cantor space and has the cardinality of the continuum ($\operatorname{card}(\mathcal{C}_\infty) = 2^{\aleph_0} = \mathfrak{c}$), despite having zero Haar measure $\mu_3(\mathcal{C}_\infty) = 0$.*
 
@@ -868,40 +881,40 @@ Let $\mathbf{q} = (q_0, \dots, q_{M-1}) \in \{0, 1\}^M$ and $\mathbf{q}' = (q_0'
 
 1. **Injectivity in $\mathbb{Z}$ via 2-adic valuation:** Since $\mathbf{q} \neq \mathbf{q}'$, there exists a smallest index $i_0 \in \{0, 1, \dots, M-1\}$ such that $q_{i_0} \neq q_{i_0}'$ (while $q_i = q_i'$ for all $0 \le i < i_0$). Subtracting $W$ and $W'$, all terms with $0 \le i < i_0$ cancel identically:
 
-   $$
-   W - W' = 3^{M-1-i_0} 2^{i_0} (q_{i_0} - q_{i_0}') + \sum_{i = i_0 + 1}^{M-1} 3^{M-1-i} 2^i (q_i - q_i')
-   $$
+$$
+W - W' = 3^{M-1-i_0} 2^{i_0} (q_{i_0} - q_{i_0}') + \sum_{i = i_0 + 1}^{M-1} 3^{M-1-i} 2^i (q_i - q_i')
+$$
 
    Factoring out the common factor $2^{i_0}$, we may write:
 
-   $$
-   W - W' = 2^{i_0} \left[ 3^{M-1-i_0}(q_{i_0} - q_{i_0}') + 2 \sum_{i = i_0 + 1}^{M-1} 3^{M-1-i} 2^{i - 1 - i_0}(q_i - q_i') \right] = 2^{i_0} \left( 3^{M-1-i_0}(\pm 1) + 2t \right)
-   $$
+$$
+W - W' = 2^{i_0} \left[ 3^{M-1-i_0}(q_{i_0} - q_{i_0}') + 2 \sum_{i = i_0 + 1}^{M-1} 3^{M-1-i} 2^{i - 1 - i_0}(q_i - q_i') \right] = 2^{i_0} \left( 3^{M-1-i_0}(\pm 1) + 2t \right)
+$$
 
    where $t \in \mathbb{Z}$ is an integer and $q_{i_0} - q_{i_0}' \in \{-1, +1\}$. Since $3^{M-1-i_0}$ is odd, the parenthesized factor $3^{M-1-i_0}(\pm 1) + 2t \equiv 1 \pmod 2$ is an **odd integer** (hence non-zero). Consequently, the exact 2-adic valuation of the difference is:
 
-   $$
-   v_2(W - W') = i_0 < \infty \implies W - W' \neq 0 \implies W \neq W'
-   $$
+$$
+v_2(W - W') = i_0 < \infty \implies W - W' \neq 0 \implies W \neq W'
+$$
 
    Therefore, $\Phi_M$ is injective in $\mathbb{Z}$.
 2. **Passage from equality modulo $3^M$ to equality in $\mathbb{Z}$:** Suppose now that $\Psi_M(\mathbf{q}) \equiv \Psi_M(\mathbf{q}') \pmod{3^M}$, that is:
 
-   $$
-   (-2^M)^{-1} W \equiv (-2^M)^{-1} W' \pmod{3^M}
-   $$
+$$
+(-2^M)^{-1} W \equiv (-2^M)^{-1} W' \pmod{3^M}
+$$
 
    Since $\gcd(-2^M, 3^M) = 1$, multiplication by $-2^M$ is an automorphism of $\mathbb{Z}/3^M\mathbb{Z}$, so multiplying both sides by $-2^M$ yields:
 
-   $$
-   W \equiv W' \pmod{3^M} \iff 3^M \mid (W - W')
-   $$
+$$
+W \equiv W' \pmod{3^M} \iff 3^M \mid (W - W')
+$$
 
    Now, by Theorem 9.1(2), both $W$ and $W'$ belong to the interval $[0, 3^M - 2^M] \subset [0, 3^M - 1]$. Therefore, the integer difference satisfies $|W - W'| \le 3^M - 2^M < 3^M$. The only integer multiple of $3^M$ with absolute value strictly less than $3^M$ is $0$, which forces ordinary equality in $\mathbb{Z}$:
 
-   $$
-   W - W' = 0 \implies W = W' \implies \mathbf{q} = \mathbf{q}'
-   $$
+$$
+W - W' = 0 \implies W = W' \implies \mathbf{q} = \mathbf{q}'
+$$
 
    This proves that $\Psi_M: \{0, 1\}^M \to \mathbb{Z}/3^M\mathbb{Z}$ is injective, and since the domain $\{0, 1\}^M$ has $2^M$ elements, we conclude that $|\mathcal{R}_M| = |\operatorname{Im}(\Psi_M)| = 2^M$. $\blacksquare$
 
@@ -940,38 +953,40 @@ $$
 
 1. By Theorem 9.1(1) applied with $k = N - j$ and horizon $j \in \{1, \dots, N\}$, we have:
 
-   $$
-   3^j a_{N-j} - 2^j a_N = W_{N-j, j} \in [0, 3^j - 2^j]
-   $$
+$$
+3^j a_{N-j} - 2^j a_N = W_{N-j, j} \in [0, 3^j - 2^j]
+$$
 
    Dividing both sides by $3^j$:
 
-   $$
-   a_{N-j} - \left(\frac{2}{3}\right)^j a_N = \frac{W_{N-j, j}}{3^j} \in \left[0, \, 1 - \left(\frac{2}{3}\right)^j\right] \subset [0, 1)
-   $$
+$$
+a_{N-j} - \left(\frac{2}{3}\right)^j a_N = \frac{W_{N-j, j}}{3^j} \in \left[0, \, 1 - \left(\frac{2}{3}\right)^j\right] \subset [0, 1)
+$$
 
    Since $a_{N-j} \in \mathbb{Z}$, the difference $a_{N-j} - (2/3)^j a_N \in [0, 1)$ coincides exactly with the fractional part of $-(2/3)^j a_N$:
 
-   $$
-   \theta_j(a_N) = \left\{ -\left(\frac{2}{3}\right)^j a_N \right\} = \frac{W_{N-j, j}}{3^j} = a_{N-j} - \left(\frac{2}{3}\right)^j a_N \qquad (\forall j \in \{1, \dots, N\})
-   $$
+$$
+\theta_j(a_N) = \left\{ -\left(\frac{2}{3}\right)^j a_N \right\} = \frac{W_{N-j, j}}{3^j} = a_{N-j} - \left(\frac{2}{3}\right)^j a_N \qquad (\forall j \in \{1, \dots, N\})
+$$
+
 2. From the definition of $W_{N-j, j} = \sum_{i=0}^{j-1} 3^{j-1-i} 2^i p_{N-j+i}$, we observe the recurrence relation between $\theta_j(a_N)$ and $\theta_{j-1}(a_N)$ (with the convention $\theta_0(a_N) := 0$):
    Substituting $a_{N-j+1} = (2/3)^{j-1} a_N + \theta_{j-1}(a_N)$ and $a_{N-j} = (2/3)^j a_N + \theta_j(a_N)$ into the step equation $3a_{N-j} - 2a_{N-j+1} = p_{N-j}$:
 
-   $$
-   3\left(\left(\frac{2}{3}\right)^j a_N + \theta_j(a_N)\right) - 2\left(\left(\frac{2}{3}\right)^{j-1} a_N + \theta_{j-1}(a_N)\right) = p_{N-j}
-   $$
+$$
+3\left(\left(\frac{2}{3}\right)^j a_N + \theta_j(a_N)\right) - 2\left(\left(\frac{2}{3}\right)^{j-1} a_N + \theta_{j-1}(a_N)\right) = p_{N-j}
+$$
 
    The terms involving $a_N$ cancel identically ($3(2/3)^j a_N - 2(2/3)^{j-1} a_N = 0$), leaving for all $j \in \{1, 2, \dots, N\}$ the clean identity:
 
-   $$
-   p_{N-j} = 3\theta_j(a_N) - 2\theta_{j-1}(a_N)
-   $$
+$$
+p_{N-j} = 3\theta_j(a_N) - 2\theta_{j-1}(a_N)
+$$
+
 3. Summing this identity from $j = 1$ to $N$ (with $\theta_0(a_N) = 0$):
 
-   $$
-   O_N = \sum_{j=1}^{N} p_{N-j} = 3\sum_{j=1}^{N} \theta_j(a_N) - 2\sum_{j=1}^{N-1} \theta_j(a_N) = 3\theta_N(a_N) + \sum_{j=1}^{N-1} \theta_j(a_N)
-   $$
+$$
+O_N = \sum_{j=1}^{N} p_{N-j} = 3\sum_{j=1}^{N} \theta_j(a_N) - 2\sum_{j=1}^{N-1} \theta_j(a_N) = 3\theta_N(a_N) + \sum_{j=1}^{N-1} \theta_j(a_N)
+$$
 
    Finally, substituting $O_N$ into $b_N = 2N - 3O_N$, we immediately obtain $b_N = 2N - 9\theta_N(a_N) - 3\sum_{j=1}^{N-1} \theta_j(a_N)$. $\blacksquare$
 
@@ -995,62 +1010,66 @@ $$
 
 1. *At $L = 1$ (with $a_0 = 8 \equiv 0 \pmod 2$ and $\delta_1^{(1)}(N) = p_N - 0 = p_N$), for the odd pole $r = 1$ we have $s_0(1, 1) = 2$ and $s_1(1, 1) = 1$, whence:*
 
-   $$
-   C_2^{(2)}(N) - C_3^{(2)}(N) = p_N
-   $$
+$$
+C_2^{(2)}(N) - C_3^{(2)}(N) = p_N
+$$
+
 2. *For the odd pole $r = 1$ at any level $L \ge 2$, since $a_0 = 8 \equiv 0 \not\equiv 1 \pmod{2^L}$, we have $\delta_1^{(L)}(N) = \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}$ and $s_1(1, L) = 1$, which induces the exact telescoping cancellation:*
 
-   $$
-   C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}} \qquad (\forall L \ge 2)
-   $$
+$$
+C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}} \qquad (\forall L \ge 2)
+$$
+
 3. *The counter $b_N = 2E_N - O_N$ satisfies for all $M \ge 2$ the exact closed-form identity:*
 
-   $$
-   b_N = 2C_0^{(2)}(N) + C_3^{(2)}(N) - \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) - C_1^{(M)}(N) + 2p_N + \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
-   $$
+$$
+b_N = 2C_0^{(2)}(N) + C_3^{(2)}(N) - \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) - C_1^{(M)}(N) + 2p_N + \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
+$$
 
    *Moreover, since $a_n \ge a_0 = 8 > 1$ for all $n \ge 0$, if one chooses any horizon $M \ge 4$ such that $2^M > a_N$ (whereby no $a_n$ with $0 \le n < N$ can satisfy $a_n \equiv 1 \pmod{2^M}$, as $a_n \ge 8 > 1$ and $a_n < a_N < 2^M$), the residual term vanishes identically ($C_1^{(M)}(N) = 0$), leaving:*
 
-   $$
-   b_N = 2C_0^{(2)}(N) + C_3^{(2)}(N) - \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) + 2p_N + \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
-   $$
+$$
+b_N = 2C_0^{(2)}(N) + C_3^{(2)}(N) - \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) + 2p_N + \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
+$$
 
 **Complete Step-by-Step Proof:**
 
 1. **Kirchhoff flow equation:** On the one hand, each class modulo $2^L$ splits into two classes modulo $2^{L+1}$, so $C_r^{(L)}(N) = C_r^{(L+1)}(N) + C_{r + 2^L}^{(L+1)}(N)$. On the other hand, for each $0 \le n \le N-1$, we have $a_{n+1} \equiv r \pmod{2^L} \iff a_n \equiv s_0(r, L) \pmod{2^{L+1}}$ (if $a_n$ is even) or $a_n \equiv s_1(r, L) \pmod{2^{L+1}}$ (if $a_n$ is odd). Therefore:
 
-   $$
-   \sum_{n=0}^{N-1} \mathbf{1}_{a_{n+1} \equiv r \pmod{2^L}} = C_{s_0(r, L)}^{(L+1)}(N) + C_{s_1(r, L)}^{(L+1)}(N)
-   $$
+$$
+\sum_{n=0}^{N-1} \mathbf{1}_{a_{n+1} \equiv r \pmod{2^L}} = C_{s_0(r, L)}^{(L+1)}(N) + C_{s_1(r, L)}^{(L+1)}(N)
+$$
 
    Since $\sum_{n=0}^{N-1} \mathbf{1}_{a_{n+1} \equiv r \pmod{2^L}} = C_r^{(L)}(N) + \mathbf{1}_{a_N \equiv r \pmod{2^L}} - \mathbf{1}_{a_0 \equiv r \pmod{2^L}} = C_r^{(L)}(N) + \delta_r^{(L)}(N)$, solving for $C_r^{(L)}(N)$ proves the master equation.
 2. **Case $L = 1, r = 1$:** Since $3^{-1} \equiv 1 \pmod 2$, $s_0(1, 1) = 2(1) = 2$ and $s_1(1, 1) = 2(0) + 1 = 1$. Moreover, $a_0 = 8 \equiv 0 \pmod 2$ and $\mathbf{1}_{a_N \equiv 1 \pmod 2} = p_N$, so $\delta_1^{(1)}(N) = p_N$. Equating both decompositions of $O_N = C_1^{(1)}(N)$:
 
-   $$
-   C_1^{(2)}(N) + C_3^{(2)}(N) = C_2^{(2)}(N) + C_1^{(2)}(N) - p_N \implies C_2^{(2)}(N) = C_3^{(2)}(N) + p_N
-   $$
+$$
+C_1^{(2)}(N) + C_3^{(2)}(N) = C_2^{(2)}(N) + C_1^{(2)}(N) - p_N \implies C_2^{(2)}(N) = C_3^{(2)}(N) + p_N
+$$
+
 3. **Telescoping at the pole $r = 1$ for $L \ge 2$:** For $r = 1$, the odd preimage is always $s_1(1, L) = 2(3^{-1}(0) \bmod 2^L) + 1 = 1$. Furthermore, since $a_0 = 8$ is even, $\mathbf{1}_{a_0 \equiv 1 \pmod{2^L}} = 0$ for all $L \ge 1$, so $\delta_1^{(L)}(N) = \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}$. Equating the fiber partition with the preimage equation for $r = 1$:
 
-   $$
-   C_1^{(L)}(N) = C_1^{(L+1)}(N) + C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) + C_1^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
-   $$
+$$
+C_1^{(L)}(N) = C_1^{(L+1)}(N) + C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) + C_1^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
+$$
 
    From this follows the recursive relation for $C_1^{(L)}(N)$:
 
-   $$
-   C_1^{(L)}(N) - C_1^{(L+1)}(N) = C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
-   $$
+$$
+C_1^{(L)}(N) - C_1^{(L+1)}(N) = C_{1 + 2^L}^{(L+1)}(N) = C_{s_0(1, L)}^{(L+1)}(N) - \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
+$$
 
    Summing telescopically from $L = 2$ to $M - 1$:
 
-   $$
-   C_1^{(2)}(N) - C_1^{(M)}(N) = \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) - \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
-   $$
+$$
+C_1^{(2)}(N) - C_1^{(M)}(N) = \sum_{L=2}^{M-1} C_{s_0(1, L)}^{(L+1)}(N) - \sum_{L=2}^{M-1} \mathbf{1}_{a_N \equiv 1 \pmod{2^L}}
+$$
+
 4. **Substitution into $b_N = 2E_N - O_N$:** Since $E_N = C_0^{(1)}(N) = C_0^{(2)}(N) + C_2^{(2)}(N)$ and $O_N = C_1^{(1)}(N) = C_1^{(2)}(N) + C_3^{(2)}(N)$, we substitute $C_2^{(2)}(N) = C_3^{(2)}(N) + p_N$:
 
-   $$
-   b_N = 2\left(C_0^{(2)}(N) + C_3^{(2)}(N) + p_N\right) - \left(C_1^{(2)}(N) + C_3^{(2)}(N)\right) = 2C_0^{(2)}(N) + C_3^{(2)}(N) + 2p_N - C_1^{(2)}(N)
-   $$
+$$
+b_N = 2\left(C_0^{(2)}(N) + C_3^{(2)}(N) + p_N\right) - \left(C_1^{(2)}(N) + C_3^{(2)}(N)\right) = 2C_0^{(2)}(N) + C_3^{(2)}(N) + 2p_N - C_1^{(2)}(N)
+$$
 
    Substituting the telescoping expression for $C_1^{(2)}(N)$ proved in step (3) yields the exact formula of the statement. Finally, if $2^M > a_N$, since $8 = a_0 \le a_n < a_N < 2^M$ for all $0 \le n < N$, we have $C_1^{(M)}(N) = 0$. $\blacksquare$
 
@@ -1065,9 +1084,9 @@ $$
 1. **Basis of the Detail Subspace $\mathcal{W}_L$ (Dimension $2^{L-1}$):** *The $2^{L-1}$ functions* $\{w_v^{(L)}\}_{v=0}^{2^{L-1}-1}$ *form an orthogonal basis of the **level-***$L$ ***detail subspace***, $\mathcal{W}_L := \operatorname{span}_{\mathbb{C}}\{w_v^{(L)} : 0 \le v < 2^{L-1}\}$, with $\langle w_v^{(L)}, w_{v'}^{(L)} \rangle = 2^{-(L-1)}\delta_{v,v'}$ and $\dim_{\mathbb{C}}(\mathcal{W}_L) = 2^{L-1}$. The full space decomposes as $\mathcal{H}_L = \operatorname{span}\{\mathbf{1}\} \oplus \bigoplus_{\ell=1}^{L} \mathcal{W}_\ell$.*
 2. **Level Ascent and Fiber Bifurcation under the Koopman Operator $\mathcal{K}$:** *For every $w_v^{(L)} \in \mathcal{W}_L$, the function $(\mathcal{K}w_v^{(L)})(a) := w_v^{(L)}(T(a))$ belongs to $\mathcal{W}_{L+1}$ and expands into exactly two preimage fibers (the even one $s_0(v, L-1)$ and the odd one $s_1(v, L-1)$ modulo $2^L$):*
 
-   $$
-   \mathcal{K}w_v^{(L)} = \varepsilon_0(v) w_{s_0(v, L-1)}^{(L+1)} + \varepsilon_1(v) w_{s_1(v, L-1)}^{(L+1)} \in \mathcal{W}_{L+1}
-   $$
+$$
+\mathcal{K}w_v^{(L)} = \varepsilon_0(v) w_{s_0(v, L-1)}^{(L+1)} + \varepsilon_1(v) w_{s_1(v, L-1)}^{(L+1)} \in \mathcal{W}_{L+1}
+$$
 
    *where $\varepsilon_0(v), \varepsilon_1(v) \in \{-1, +1\}$ are the signs given by $(-1)^{\lfloor (T(s_i(v, L-1)) \bmod 2^L)/2^{L-1} \rfloor}$.*
 
@@ -1076,15 +1095,15 @@ $$
 1. For each $v \in \{0, \dots, 2^{L-1}-1\}$, the only elements of $\mathbb{Z}/2^L\mathbb{Z}$ congruent to $v \pmod{2^{L-1}}$ are $a_0 = v$ (where $\lfloor v/2^{L-1} \rfloor = 0 \implies w_v^{(L)}(v) = +1$) and $a_1 = v + 2^{L-1}$ (where $\lfloor (v+2^{L-1})/2^{L-1} \rfloor = 1 \implies w_v^{(L)}(v+2^{L-1}) = -1$). Therefore, for $v \neq v'$ the supports $\{v, v+2^{L-1}\}$ and $\{v', v'+2^{L-1}\}$ are disjoint, which implies $\langle w_v^{(L)}, w_{v'}^{(L)} \rangle = 0$; and for $v = v'$, $\langle w_v^{(L)}, w_v^{(L)} \rangle = 2^{-L}(1^2 + (-1)^2) = 2^{-(L-1)} \neq 0$. Being orthogonal and nonzero, the $2^{L-1}$ functions are linearly independent and span $\mathcal{W}_L$ of dimension $2^{L-1}$. Furthermore, every function $f \in \mathcal{H}_L$ decomposes uniquely on each fiber $\{v, v+2^{L-1}\}$ as the sum of its mean $\frac{f(v)+f(v+2^{L-1})}{2} \in \mathcal{H}_{L-1}$ and its half-difference $\frac{f(v)-f(v+2^{L-1})}{2} w_v^{(L)} \in \mathcal{W}_L$, proving by induction that $\mathcal{H}_L = \operatorname{span}\{\mathbf{1}\} \oplus \bigoplus_{\ell=1}^L \mathcal{W}_\ell$.
 2. Let $a \in \{0, \dots, 2^L - 1\}$. Since $L \ge 1$, $(a + 2^L) \bmod 2 = a \bmod 2 = p$, hence:
 
-   $$
-   T(a + 2^L) = \frac{3(a + 2^L) - p}{2} = T(a) + 3 \cdot 2^{L-1} \equiv T(a) + 2^{L-1} \pmod{2^L}
-   $$
+$$
+T(a + 2^L) = \frac{3(a + 2^L) - p}{2} = T(a) + 3 \cdot 2^{L-1} \equiv T(a) + 2^{L-1} \pmod{2^L}
+$$
 
    Consequently, $T(a + 2^L) \equiv T(a) \pmod{2^{L-1}}$, while the $(L-1)$-th bit of $T(a)$ is flipped upon adding $2^{L-1} \pmod{2^L}$, which implies:
 
-   $$
-   (\mathcal{K}w_v^{(L)})(a + 2^L) = w_v^{(L)}(T(a + 2^L)) = -w_v^{(L)}(T(a)) = -(\mathcal{K}w_v^{(L)})(a)
-   $$
+$$
+(\mathcal{K}w_v^{(L)})(a + 2^L) = w_v^{(L)}(T(a + 2^L)) = -w_v^{(L)}(T(a)) = -(\mathcal{K}w_v^{(L)})(a)
+$$
 
    Thus, on each fiber $\{a, a+2^L\}$ of $\mathbb{Z}/2^{L+1}\mathbb{Z}$ over $\mathbb{Z}/2^L\mathbb{Z}$, the function $\mathcal{K}w_v^{(L)}$ takes opposite values (zero mean), so it belongs to $\mathcal{W}_{L+1}$. Finally, $(\mathcal{K}w_v^{(L)})(a) \neq 0 \iff T(a) \equiv v \pmod{2^{L-1}} \iff a \equiv s_0(v, L-1) \pmod{2^L}$ or $a \equiv s_1(v, L-1) \pmod{2^L}$. Evaluating at the representatives $a = s_i(v, L-1) \in \{0, \dots, 2^L-1\}$ (where $w_{s_i(v, L-1)}^{(L+1)}(s_i(v, L-1)) = +1$), the coefficient is exactly $\varepsilon_i(v) = w_v^{(L)}(T(s_i(v, L-1))) = (-1)^{\lfloor (T(s_i(v, L-1)) \bmod 2^L)/2^{L-1} \rfloor}$. $\blacksquare$
 
@@ -1092,20 +1111,21 @@ $$
 
 1. **Rational Formula for Periodic Points in $\mathbb{Z}_2$:** *Every periodic point $x_0 \in \mathbb{Z}_2$ of period $m \ge 1$ under $T_2(x) = \frac{3x - (x \bmod 2)}{2}$ with parity word $(p_0, \dots, p_{m-1}) \in \{0, 1\}^m$ satisfies $2^m x_0 = 3^m x_0 - W$, so it is necessarily a rational number with odd denominator belonging to $[0, 1] \cap \mathbb{Q}$:*
 
-   $$
-   x_0 = \frac{W}{3^m - 2^m} \in \mathbb{Z}_2 \cap [0, 1] \cap \mathbb{Q}, \qquad \text{where } W = \sum_{j=0}^{m-1} 3^{m-1-j} 2^j p_j \in [0, 3^m - 2^m]
-   $$
+$$
+x_0 = \frac{W}{3^m - 2^m} \in \mathbb{Z}_2 \cap [0, 1] \cap \mathbb{Q}, \qquad \text{where } W = \sum_{j=0}^{m-1} 3^{m-1-j} 2^j p_j \in [0, 3^m - 2^m]
+$$
+
 2. **Explicit Infinite Family of Non-Integer Rational Cycles in $\mathbb{Z}_2$ of Minimal Period $m \ge 2$:** *For each integer $m \ge 2$, let us define the rational number:*
 
-   $$
-   x_0^{(m)} := \frac{2^{m-1}}{3^m - 2^m} \in (0, 1) \cap \mathbb{Q}
-   $$
+$$
+x_0^{(m)} := \frac{2^{m-1}}{3^m - 2^m} \in (0, 1) \cap \mathbb{Q}
+$$
 
    *Then $x_0^{(m)} \in \mathbb{Z}_2 \setminus \mathbb{Z}$, and its orbit under $T_2$ is given for $0 \le k \le m-1$ by:*
 
-   $$
-   x_k^{(m)} = T_2^k(x_0^{(m)}) = \frac{3^k 2^{m-1-k}}{3^m - 2^m} \in \mathbb{Z}_2 \setminus \mathbb{Z}
-   $$
+$$
+x_k^{(m)} = T_2^k(x_0^{(m)}) = \frac{3^k 2^{m-1-k}}{3^m - 2^m} \in \mathbb{Z}_2 \setminus \mathbb{Z}
+$$
 
    *which follows the exact parity word $(p_0, p_1, \dots, p_{m-2}, p_{m-1}) = (\underbrace{0, 0, \dots, 0}_{m-1\text{ zeros}}, 1)$, returns to* $T_2^m(x_0^{(m)}) = x_0^{(m)}$*, and has **exact minimal period equal to*** $m$*. Consequently, for distinct values of* $m \ge 2$ *these orbits are disjoint and there exist **infinitely many distinct non-integer rational periodic cycles** in* $\mathbb{Z}_2$ *(with $m = 2$ being the special case $\frac{2}{5} \leftrightarrow \frac{3}{5}$).*
 3. **Uniqueness of the Fixed Points $\{0, 1\}$ in the Ordinary Integers $\mathbb{Z}$:** *Restricting the domain to the ordinary integers $\mathbb{Z} \subset \mathbb{Z}_2$, since every periodic point satisfies $x_0 \in [0, 1]$ and* $\mathbb{Z} \cap [0, 1] = \{0, 1\}$*, the **only periodic cycles in*** $\mathbb{Z}$ *are the two trivial fixed points $x_0 = 0$ ($W = 0$) and $x_0 = 1$ ($W = 3^m - 2^m$), which are inaccessible from $a_0 = 8$ because the integer orbit is strictly increasing ($a_{n+1} > a_n \ge 8$).*
@@ -1115,33 +1135,34 @@ Let $m \ge 2$ be fixed and let $D_m := 3^m - 2^m$.
 
 1. **Membership in $\mathbb{Z}_2 \setminus \mathbb{Z}$:** Since $m \ge 2$, $3^m$ is odd and $2^m$ is even, so the denominator $D_m = 3^m - 2^m \equiv 1 - 0 \equiv 1 \pmod 2$ is strictly **odd**. Therefore, $D_m \in \mathbb{Z}_2^\times$ is invertible in $\mathbb{Z}_2$ (with $D_m^{-1} \equiv 1 \pmod 2$), which guarantees that $x_k^{(m)} = \frac{3^k 2^{m-1-k}}{D_m} \in \mathbb{Z}_2$ for all $0 \le k \le m-1$. Furthermore, for $m \ge 2$ we have $3^m - 2^m \ge 9 - 4 = 5 > 0$ and, for all $0 \le k \le m-1$:
 
-   $$
-   0 < 3^k 2^{m-1-k} \le 3^{m-1} < 3^m - 2^m \quad (\text{since } 2 \cdot 3^{m-1} + 2^m \le 2 \cdot 3^{m-1} + 3^{m-1} = 3^m)
-   $$
+$$
+0 < 3^k 2^{m-1-k} \le 3^{m-1} < 3^m - 2^m \quad (\text{since } 2 \cdot 3^{m-1} + 2^m \le 2 \cdot 3^{m-1} + 3^{m-1} = 3^m)
+$$
 
    Hence $0 < x_k^{(m)} < 1$, which proves that $x_k^{(m)} \notin \mathbb{Z}$ for all $0 \le k \le m-1$.
 2. **Exact parities and evolution during the first $m-1$ steps ($0 \le k \le m-2$):** In $\mathbb{Z}_2$, since $D_m^{-1} \equiv 1 \pmod 2$, the 2-adic parity of a fraction $\frac{N}{D_m}$ coincides with the parity of the integer numerator $N$:
 
-   $$
-   p_2\left(\frac{N}{D_m}\right) = (N \cdot D_m^{-1}) \bmod 2 = N \bmod 2
-   $$
+$$
+p_2\left(\frac{N}{D_m}\right) = (N \cdot D_m^{-1}) \bmod 2 = N \bmod 2
+$$
 
    For $0 \le k \le m-2$, the exponent of $2$ in the numerator $N_k = 3^k 2^{m-1-k}$ satisfies $m - 1 - k \ge 1$, so $N_k$ is **even** and $p_2(x_k^{(m)}) = 0$. Applying the even branch $T_0(x) = \frac{3x}{2}$ by induction from $k = 0$ to $k = m-2$:
 
-   $$
-   T_2(x_k^{(m)}) = \frac{3}{2} \left(\frac{3^k 2^{m-1-k}}{3^m - 2^m}\right) = \frac{3^{k+1} 2^{m-1-(k+1)}}{3^m - 2^m} = x_{k+1}^{(m)}
-   $$
+$$
+T_2(x_k^{(m)}) = \frac{3}{2} \left(\frac{3^k 2^{m-1-k}}{3^m - 2^m}\right) = \frac{3^{k+1} 2^{m-1-(k+1)}}{3^m - 2^m} = x_{k+1}^{(m)}
+$$
+
 3. **Final step ($k = m - 1$) and cycle closure:** Upon reaching $k = m - 1$, the state is:
 
-   $$
-   x_{m-1}^{(m)} = \frac{3^{m-1} 2^0}{3^m - 2^m} = \frac{3^{m-1}}{3^m - 2^m}
-   $$
+$$
+x_{m-1}^{(m)} = \frac{3^{m-1} 2^0}{3^m - 2^m} = \frac{3^{m-1}}{3^m - 2^m}
+$$
 
    Whose numerator $N_{m-1} = 3^{m-1}$ is **odd**, so $p_2(x_{m-1}^{(m)}) = 1$. Applying the odd branch $T_1(x) = \frac{3x - 1}{2}$:
 
-   $$
-   T_2(x_{m-1}^{(m)}) = \frac{3\left(\frac{3^{m-1}}{3^m - 2^m}\right) - 1}{2} = \frac{3^m - (3^m - 2^m)}{2(3^m - 2^m)} = \frac{2^m}{2(3^m - 2^m)} = \frac{2^{m-1}}{3^m - 2^m} = x_0^{(m)}
-   $$
+$$
+T_2(x_{m-1}^{(m)}) = \frac{3\left(\frac{3^{m-1}}{3^m - 2^m}\right) - 1}{2} = \frac{3^m - (3^m - 2^m)}{2(3^m - 2^m)} = \frac{2^m}{2(3^m - 2^m)} = \frac{2^{m-1}}{3^m - 2^m} = x_0^{(m)}
+$$
 
    which proves that $T_2^m(x_0^{(m)}) = x_0^{(m)}$.
 4. **Minimality of period $m$:** In a complete cycle of $m$ steps $\{x_0^{(m)}, x_1^{(m)}, \dots, x_{m-1}^{(m)}\}$, the parity bit equals $0$ exactly $m-1$ times (for $0 \le k \le m-2$) and equals $1$ **only once** (at $k = m-1$). Since in $\mathbb{R}$ the finite sequence $x_0^{(m)} < x_1^{(m)} < \dots < x_{m-1}^{(m)}$ is strictly increasing (as $x_{k+1}^{(m)} = \frac{3}{2}x_k^{(m)} > x_k^{(m)}$ for $0 \le k \le m-2$), the $m$ elements $\{x_0^{(m)}, \dots, x_{m-1}^{(m)}\}$ are all pairwise distinct. Therefore, the minimal period of $x_0^{(m)}$ is exactly $m$, and for $m \neq m'$ the associated cycles have different cardinalities and are disjoint. $\blacksquare$
@@ -1165,21 +1186,22 @@ $$
 
 - *For all $j \in \{0, 1, \dots, N-1\}$, the ceiling function is eliminated exactly via the inverse linear law:*
 
-  $$
-  3Y_{j+1} - 2Y_j = r_j = p_{N-1-j} \in \{0, 1\}
-  $$
+$$
+3Y_{j+1} - 2Y_j = r_j = p_{N-1-j} \in \{0, 1\}
+$$
 
   *which is equivalent to the **Dual Affine Algebraic Curve*** $(3Y_{j+1} - 2Y_j)(3Y_{j+1} - 2Y_j - 1) = 0$*.*
 - *The linear sum satisfies the **Inverse Linear Invariant**:*
 
-  $$
-  24 - 2X + \sum_{j=1}^{N-1} Y_j = O_N
-  $$
+$$
+24 - 2X + \sum_{j=1}^{N-1} Y_j = O_N
+$$
+
 - *The quadratic sum satisfies the **Autocorrelation Invariant of the Inverse Chain**:*
 
-  $$
-  \mathbf{576 + 4X^2 + 13 \sum_{j=1}^{N-1} Y_j^2 - 12 \sum_{j=0}^{N-1} Y_j Y_{j+1} = O_N}
-  $$
+$$
+\mathbf{576 + 4X^2 + 13 \sum_{j=1}^{N-1} Y_j^2 - 12 \sum_{j=0}^{N-1} Y_j Y_{j+1} = O_N}
+$$
 
 **Proof (with explicit breakdown of the endpoints $j=0$ and $j=N$):**
 For each $j \in \{0, 1, \dots, N-1\}$, writing $Y_j = 3q_j + r_j$ with $r_j \in \{0, 1\}$, we have $\lceil \frac{2}{3}Y_j \rceil = 2q_j + r_j = \frac{2Y_j + r_j}{3} \implies 3Y_{j+1} - 2Y_j = r_j$.
@@ -1193,20 +1215,21 @@ Summing from $j = 0$ to $N - 1$, the right-hand side equals $\sum_{j=0}^{N-1} r_
 
 1. In the first quadratic sum:
 
-   $$
-   \sum_{j=0}^{N-1} 9Y_{j+1}^2 = 9Y_N^2 + 9\sum_{j=1}^{N-1} Y_j^2 = 9(8^2) + 9\sum_{j=1}^{N-1} Y_j^2 = 576 + 9\sum_{j=1}^{N-1} Y_j^2
-   $$
+$$
+\sum_{j=0}^{N-1} 9Y_{j+1}^2 = 9Y_N^2 + 9\sum_{j=1}^{N-1} Y_j^2 = 9(8^2) + 9\sum_{j=1}^{N-1} Y_j^2 = 576 + 9\sum_{j=1}^{N-1} Y_j^2
+$$
+
 2. In the second quadratic sum:
 
-   $$
-   \sum_{j=0}^{N-1} 4Y_j^2 = +4Y_0^2 + 4\sum_{j=1}^{N-1} Y_j^2 = +4X^2 + 4\sum_{j=1}^{N-1} Y_j^2
-   $$
+$$
+\sum_{j=0}^{N-1} 4Y_j^2 = +4Y_0^2 + 4\sum_{j=1}^{N-1} Y_j^2 = +4X^2 + 4\sum_{j=1}^{N-1} Y_j^2
+$$
 
    Adding both contributions together with $-12\sum_{j=0}^{N-1} Y_j Y_{j+1}$, the interior squares ($1 \le j \le N-1$) combine with coefficient $9 + 4 = 13$ and both boundary terms ($576$ and $+4X^2$) carry a positive sign:
 
-   $$
-   576 + 4X^2 + 13 \sum_{j=1}^{N-1} Y_j^2 - 12 \sum_{j=0}^{N-1} Y_j Y_{j+1} = O_N \quad \blacksquare
-   $$
+$$
+576 + 4X^2 + 13 \sum_{j=1}^{N-1} Y_j^2 - 12 \sum_{j=0}^{N-1} Y_j Y_{j+1} = O_N \quad \blacksquare
+$$
 
 ### 12.2. The Modular Sieve $\Psi(P_K) \equiv 18 \pmod{36}$ and its Exact Archimedean Representation
 
@@ -1215,9 +1238,9 @@ Summing from $j = 0$ to $N - 1$, the right-hand side equals $\sum_{j=0}^{N-1} r_
 1. **Diophantine Identity and Modulo 36 Sieve at the Closure of Every Macro-Cycle with $m_K \ge 2$ (100% independent of $\alpha$):**
    *In any macro-cycle $K \ge 1$ whose odd descent phase has length $m_K \ge 2$ and odd core $d_K \in \mathbb{Z}_{\ge 1}$ ($d_K \equiv 1 \pmod 2$), the even integer at the closure time $N_K = P_K + M_K$:*
 
-   $$
-   \Psi_{\text{cycle}}(K) := 2(a_{N_K} - 1) = 2 \cdot 3^{m_K} d_K
-   $$
+$$
+\Psi_{\text{cycle}}(K) := 2(a_{N_K} - 1) = 2 \cdot 3^{m_K} d_K
+$$
 
    *simultaneously satisfies the three arithmetic exclusion filters:*
 
@@ -1225,29 +1248,31 @@ Summing from $j = 0$ to $N - 1$, the right-hand side equals $\sum_{j=0}^{N-1} r_
    - **3-adic Filter ($\bmod 9$):** $2(a_{N_K} - 1) \equiv 0 \pmod 9$.
    - **Modulo 36 Combination and Cantor Filter:**
 
-     $$
-     2(a_{N_K} - 1) \equiv 18 \pmod{36} \qquad \text{and} \qquad (2^{m_K} d_K + 1) \bmod 9 \in \{0, 6\}
-     $$
+$$
+2(a_{N_K} - 1) \equiv 18 \pmod{36} \qquad \text{and} \qquad (2^{m_K} d_K + 1) \bmod 9 \in \{0, 6\}
+$$
+
 2. **General Sieve and Exact Archimedean Representation at a First Halting Time $N = 3P + 1 \ge 4$:**
    *Suppose that Antihydra halts for the first time at step $N \ge 4$ (that is, $b_N = -1$ and $b_n \ge 0$ for all $0 \le n < N$). By Lemma 1.1, we have $N = 3P + 1$ (where $P = E_N \ge 1$ is the total number of even steps prior to $N$) and the last two steps prior to $N$ are forced to be odd ($p_{N-2} = p_{N-1} = 1$). Defining for all $P \ge 1$ the functional:*
 
-   $$
-   \Psi(P) := 2(a_{3P+1} - 1) = 2\left( \left\lceil \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P} \right\rceil - 1 \right) = 2 \left\lfloor \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P} \right\rfloor
-   $$
+$$
+\Psi(P) := 2(a_{3P+1} - 1) = 2\left( \left\lceil \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P} \right\rceil - 1 \right) = 2 \left\lfloor \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P} \right\rfloor
+$$
 
    *then at every first halting time* $N = 3P + 1$ *it holds **unconditionally** that* $9 \mid (a_N - 1)$*, that is:*
 
-   $$
-   \Psi(P) \equiv 0 \pmod{18}
-   $$
+$$
+\Psi(P) \equiv 0 \pmod{18}
+$$
 
    *breaking down into exactly two subcases according to the parity of $a_N$:*
 
    - **Subcase 2a (Exact halting at the closure of macro-cycle $K$, i.e., $N = N_K$, $P = P_K$, $B_K = -1$, and $a_N$ even):** *We have $m_K \ge 2$ and the sieve holds with exactness:*
 
-     $$
-     \Psi(P_K) = 2 \left\lfloor \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P_K} \right\rfloor = 2 \cdot 3^{m_K} d_K \equiv 18 \pmod{36}
-     $$
+$$
+\Psi(P_K) = 2 \left\lfloor \frac{3\alpha}{2} \left(\frac{27}{8}\right)^{P_K} \right\rfloor = 2 \cdot 3^{m_K} d_K \equiv 18 \pmod{36}
+$$
+
    - **Subcase 2b (Halting in the interior of the odd phase of macro-cycle $K$, i.e., $N < N_K$, $B_K \le -2$, and $a_N$ odd):** *Since $a_N - 1$ is even and a multiple of $9$, we have $\Psi(P) \equiv 0 \pmod{36}$ at step $N = 3P + 1$, whereas upon completion of the odd run at $N_K$ it continues to satisfy $2(a_{N_K} - 1) = 2 \cdot 3^{m_K} d_K \equiv 18 \pmod{36}$.*
 
 **Complete Step-by-Step Proof (Separating the Diophantine Proof from the Archimedean Representation):**
@@ -1263,17 +1288,17 @@ Summing from $j = 0$ to $N - 1$, the right-hand side equals $\sum_{j=0}^{N-1} r_
    - Since $b_0 = 0, b_1 = 2, b_2 = 4, b_3 = 6, b_4 = 5$, the first halting time $b_N = -1$ must satisfy $N > 4$. By Lemma 1.1, $N = 3P + 1$ with $P = E_N \ge 1$, and the two steps immediately preceding $N$ are forced to be odd: $p_{N-2} = 1$ and $p_{N-1} = 1$ (passing through $b_{N-2} = 1 \to b_{N-1} = 0 \to b_N = -1$).
    - Applying the odd transition law $a_{k+1} - 1 = \frac{3}{2}(a_k - 1)$ at steps $N - 2$ and $N - 1$:
 
-     $$
-     a_{N-1} - 1 = \frac{3}{2}(a_{N-2} - 1), \qquad a_N - 1 = \frac{3}{2}(a_{N-1} - 1) = \frac{9}{4}(a_{N-2} - 1)
-     $$
+$$
+a_{N-1} - 1 = \frac{3}{2}(a_{N-2} - 1), \qquad a_N - 1 = \frac{3}{2}(a_{N-1} - 1) = \frac{9}{4}(a_{N-2} - 1)
+$$
 
      Since $a_{N-2}, a_{N-1}, a_N \in \mathbb{Z}$ and $\gcd(9, 4) = 1$, the integer $a_{N-2} - 1$ is divisible by $4$, and therefore $a_N - 1 = 9 \cdot \frac{a_{N-2} - 1}{4}$ is **always a multiple of** $9$, regardless of the parity of $a_N$. Multiplying by $2$ yields $\Psi(P) = 2(a_N - 1) \equiv 0 \pmod{18}$.
    - If the first crossing $b_N = -1$ occurs at the conclusion of the odd phase of macro-cycle $K$ ($N = N_K$, hence $P = P_K$, $B_K = -1$, and $a_N = a_{N_K}$ is even), since the last two steps were odd we have $m_K \ge 2$, and by Part (1) it satisfies $\Psi(P_K) \equiv 18 \pmod{36}$. If instead the odd run had length $m_K > b_{t_K} + 1$, at the time $N = 3P + 1$ where $b_N = -1$ the state $a_N$ remains odd ($a_N - 1$ is even), so $2(a_N - 1)$ is a multiple of $4$ and of $9$, giving $\Psi(P) \equiv 0 \pmod{36}$.
    - Finally, by Theorem 4.1(3), for every integer $N \ge 0$ we have $\alpha(3/2)^N \notin \mathbb{Z}$ and $a_N - 1 = \lfloor \alpha(3/2)^N \rfloor = \lceil \alpha(3/2)^N \rceil - 1$. Evaluating at $N = 3P + 1$:
 
-     $$
-     \alpha\left(\frac{3}{2}\right)^{3P + 1} = \frac{3\alpha}{2} \left(\left(\frac{3}{2}\right)^3\right)^{P} = \frac{3\alpha}{2}\left(\frac{27}{8}\right)^{P}
-     $$
+$$
+\alpha\left(\frac{3}{2}\right)^{3P + 1} = \frac{3\alpha}{2} \left(\left(\frac{3}{2}\right)^3\right)^{P} = \frac{3\alpha}{2}\left(\frac{27}{8}\right)^{P}
+$$
 
      Substituting into $\Psi(P) = 2(a_{3P+1} - 1)$ yields $\Psi(P) = 2\left(\left\lceil \frac{3\alpha}{2}(27/8)^{P} \right\rceil - 1\right) = 2\left\lfloor \frac{3\alpha}{2}(27/8)^{P} \right\rfloor$. $\blacksquare$
 
@@ -1289,37 +1314,39 @@ $$
 
 1. **Exponential Evolution of $z^{b_n}$:** *For all $z \in \mathbb{C}^\times$ and $n \ge 0$:*
 
-   $$
-   z^{b_{n+1}} = z^{b_n} \Big[ z^2 (1 - p_n) + z^{-1} p_n \Big] = z^{b_n} \Big[ z^2 - (z^2 - z^{-1})(3a_n - 2a_{n+1}) \Big]
-   $$
+$$
+z^{b_{n+1}} = z^{b_n} \Big[ z^2 (1 - p_n) + z^{-1} p_n \Big] = z^{b_n} \Big[ z^2 - (z^2 - z^{-1})(3a_n - 2a_{n+1}) \Big]
+$$
+
 2. **Exact Branchwise Multiplicative Quotient:** *Since $a_{n+1} = \frac{3a_n - p_n}{2}$ and $b_{n+1} - b_n = 2 - 3p_n$, the step-by-step quotient of $F_n(z) = a_n z^{b_n}$ is exactly:*
 
-   $$
-   \frac{F_{n+1}(z)}{F_n(z)} = \frac{a_{n+1}}{a_n} z^{2 - 3p_n} = \left(\frac{3a_n - p_n}{2a_n}\right) z^{2 - 3p_n} = \begin{cases} \frac{3}{2} z^2 & \text{if } p_n = 0 \quad (a_n \text{ even}), \\[6pt] \frac{3a_n - 1}{2a_n} z^{-1} = \frac{3}{2}\left(1 - \frac{1}{3a_n}\right) z^{-1} & \text{if } p_n = 1 \quad (a_n \text{ odd}). \end{cases}
-   $$
+$$
+\frac{F_{n+1}(z)}{F_n(z)} = \frac{a_{n+1}}{a_n} z^{2 - 3p_n} = \left(\frac{3a_n - p_n}{2a_n}\right) z^{2 - 3p_n} = \begin{cases} \frac{3}{2} z^2 & \text{if } p_n = 0 \quad (a_n \text{ even}), \\[6pt] \frac{3a_n - 1}{2a_n} z^{-1} = \frac{3}{2}\left(1 - \frac{1}{3a_n}\right) z^{-1} & \text{if } p_n = 1 \quad (a_n \text{ odd}). \end{cases}
+$$
 
    *In particular, owing to the multiplicative defect factor $\left(1 - \frac{1}{3a_n}\right) < 1$ in the odd branch, the quotients* $\frac{F_{n+1}(z)}{F_n(z)}$ *of the two branches **do not coincide** when* $z^3 = 1$*. Unrolling the telescoping product from $n = 0$ to $N - 1$:*
 
-   $$
-   F_N(z) = a_N z^{b_N} = 8 \left(\frac{3}{2}\right)^N z^{b_N} \prod_{\substack{k=0 \\ p_k = 1}}^{N-1} \left(1 - \frac{1}{3a_k}\right)
-   $$
+$$
+F_N(z) = a_N z^{b_N} = 8 \left(\frac{3}{2}\right)^N z^{b_N} \prod_{\substack{k=0 \\ p_k = 1}}^{N-1} \left(1 - \frac{1}{3a_k}\right)
+$$
 
    *Dividing by $(3/2)^N z^{b_N}$ and taking the limit $N \to \infty$ (which converges because $\sum_{k=0}^\infty \frac{1}{3a_k} < \infty$ as* $a_k$ *grows exponentially), we obtain the **Infinite Product Representation of the Antihydra Constant**:*
 
-   $$
-   \alpha = 8 \prod_{\substack{k=0 \\ p_k = 1}}^{\infty} \left(1 - \frac{1}{3a_k}\right)
-   $$
+$$
+\alpha = 8 \prod_{\substack{k=0 \\ p_k = 1}}^{\infty} \left(1 - \frac{1}{3a_k}\right)
+$$
+
 3. **Exact Inhomogeneous Linear Recurrence at the Cube Roots of Unity ($z^3 = 1$):** *Additively separating the linear term $3a_n$ from the defect $-p_n$ in $2a_{n+1} = 3a_n - p_n$, for all $z \in \mathbb{C}^\times$ it holds that:*
 
-   $$
-   2F_{n+1}(z) = (3a_n - p_n) z^{b_n + 2 - 3p_n} = 3z^{2 - 3p_n} F_n(z) - p_n z^{b_n - 1}
-   $$
+$$
+2F_{n+1}(z) = (3a_n - p_n) z^{b_n + 2 - 3p_n} = 3z^{2 - 3p_n} F_n(z) - p_n z^{b_n - 1}
+$$
 
    *(since the term $-p_n z^{b_n + 2 - 3p_n}$ is nonzero only when $p_n = 1$, in which case $b_n + 2 - 3p_n = b_n - 1$). When $z$ is any of the three cube roots of unity ($z^3 = 1$, that is, $z \in \{1, \omega, \omega^2\}$ with $\omega = e^{2\pi i/3}$), we have $z^{-3p_n} = (z^3)^{-p_n} = 1$ for both $p_n = 0$ and* $p_n = 1$*, whereby the **homogeneous coefficients** of both branches do become equal to* $3z^2$*, yielding the exact inhomogeneous linear difference equation:*
 
-   $$
-   2F_{n+1}(z) - 3z^2 F_n(z) = -p_n z^{b_n - 1} \qquad (\forall z \in \{1, \omega, \omega^2\})
-   $$
+$$
+2F_{n+1}(z) - 3z^2 F_n(z) = -p_n z^{b_n - 1} \qquad (\forall z \in \{1, \omega, \omega^2\})
+$$
 
 ## Part XIV: Ternary Symbolic Dynamics, Carry Transducer and Populations ($U_n, D_n, V_n, K_n$), the Universal Tail, Mahler's Problem, and Bibliographical References
 
@@ -1352,78 +1379,82 @@ In the exact division by $2$ given by $a_{n+1} = \frac{3a_n - p_n}{2} = \frac{\s
 1. **Initial state (to the left of the leading digit):** $c_{n, L_n + 1} := 0$.
 2. **Local transition recurrence (for $k = L_n, L_n - 1, \dots, 0$):**
 
-   $$
-   c_{n, k} := (c_{n, k+1} + \tau_{n, k}) \bmod 2 = \left( \sum_{j=k}^{L_n} \tau_{n, j} \right) \bmod 2 = \#\{k \le j \le L_n : \tau_{n, j} = 1\} \bmod 2 \in \{0, 1\}
-   $$
+$$
+c_{n, k} := (c_{n, k+1} + \tau_{n, k}) \bmod 2 = \left( \sum_{j=k}^{L_n} \tau_{n, j} \right) \bmod 2 = \#\{k \le j \le L_n : \tau_{n, j} = 1\} \bmod 2 \in \{0, 1\}
+$$
 
    That is, when scanning from left to right, the phase state toggles ($0 \leftrightarrow 1$) if and only if a digit $\tau_{n, k} = 1$ is read, and remains invariant ($c_{n, k} = c_{n, k+1}$) when $\tau_{n, k} \in \{0, 2\}$ is read.
 3. **Final state (at the right boundary $k = 0$):**
 
-   $$
-   c_{n, 0} = \left( \sum_{j=0}^{L_n} \tau_{n, j} \right) \bmod 2 = U_n \bmod 2 = p_n
-   $$
+$$
+c_{n, 0} = \left( \sum_{j=0}^{L_n} \tau_{n, j} \right) \bmod 2 = U_n \bmod 2 = p_n
+$$
 
    In the units column ($j = 0$) of $3a_n - p_n$, this incoming remainder $3c_{n, 0} = 3p_n$ combines with $-p_n$, producing the units digit of $a_{n+1}$ with no outgoing remainder: $\tau_{n+1, 0} = \frac{3c_{n, 0} - p_n}{2} = p_n \in \{0, 1\}$.
 4. **Column-by-column Euclidean division equation:** In each column $j = k + 1$ ($0 \le k \le L_n$) of $3a_n$, the carry $c_{n, k+1}$ enters from the left, the digit $\tau_{n, k}$ is added, and the remainder $c_{n, k} = (3c_{n, k+1} + \tau_{n, k}) \bmod 2$ exits to the right, determining the $(k+1)$-th digit of $a_{n+1}$ via the closed formula:
 
-   $$
-   \tau_{n+1, k+1} = \frac{3c_{n, k+1} + \tau_{n, k} - c_{n, k}}{2} \in \{0, 1, 2\} \qquad (0 \le k \le L_n), \qquad \tau_{n+1, 0} = p_n
-   $$
+$$
+\tau_{n+1, k+1} = \frac{3c_{n, k+1} + \tau_{n, k} - c_{n, k}}{2} \in \{0, 1, 2\} \qquad (0 \le k \le L_n), \qquad \tau_{n+1, 0} = p_n
+$$
 
 **Classification of the Four Subpopulations by Phase ($V_n^{(0)}, V_n^{(1)}, D_n^{(0)}, D_n^{(1)}$) and Active Volume $K_n$:**
 Since for every position $k$ with $\tau_{n, k} \in \{0, 2\}$ the incoming and outgoing carries coincide ($c_{n, k+1} = c_{n, k}$), we unambiguously classify each digit $0$ and each digit $2$ of $a_n$ according to the value of its phase $c_{n, k} \in \{0, 1\}$:
 
 - **In Inactive Phase ($c_{n, k} = 0$):**
 
-  $$
-  V_n^{(0)} := \#\{0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 0\}, \qquad D_n^{(0)} := \#\{0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 0\}
-  $$
+$$
+V_n^{(0)} := \#\{0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 0\}, \qquad D_n^{(0)} := \#\{0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 0\}
+$$
+
 - **In Active Phase ($c_{n, k} = 1$):**
 
-  $$
-  V_n^{(1)} := \#\{0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 1\}, \qquad D_n^{(1)} := \#\{0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 1\}
-  $$
+$$
+V_n^{(1)} := \#\{0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 1\}, \qquad D_n^{(1)} := \#\{0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 1\}
+$$
 
   satisfying $V_n = V_n^{(0)} + V_n^{(1)}$ and $D_n = D_n^{(0)} + D_n^{(1)}$. Likewise, among the $U_n$ digits equal to $1$ (read from left to right at positions $k_1 > k_2 > \dots > k_{U_n} \ge 0$), exactly $\frac{U_n + p_n}{2}$ have odd reading index $j$ (toggling the carry from $c_{n, k+1} = 0$ to $c_{n, k} = 1$) and exactly $\frac{U_n - p_n}{2}$ have even reading index $j$ (toggling from $c_{n, k+1} = 1$ to $c_{n, k} = 0$). The total number of positions $k \in \{0, \dots, L_n\}$ that receive an active incoming carry $c_{n, k+1} = 1$ is:
 
-  $$
-  K_n := \#\{0 \le k \le L_n : c_{n, k+1} = 1\} = \frac{U_n - p_n}{2} + D_n^{(1)} + V_n^{(1)}
-  $$
+$$
+K_n := \#\{0 \le k \le L_n : c_{n, k+1} = 1\} = \frac{U_n - p_n}{2} + D_n^{(1)} + V_n^{(1)}
+$$
 
 Theorem 14.1 (Master Equations of the Ternary Automaton and Phase Balance) [Proved]: *For every step $n \ge 0$, the counts of digits $1$ and $2$ of $a_{n+1}$ and the sum of digits $\Sigma_3(a_{n+1})$ obey the exact laws:*
 
 1. **Evolution of digits 2 ($D_{n+1}$):**
 
-   $$
-   D_{n+1} = \frac{U_n - p_n}{2} + D_n^{(1)} = K_n - V_n^{(1)}
-   $$
+$$
+D_{n+1} = \frac{U_n - p_n}{2} + D_n^{(1)} = K_n - V_n^{(1)}
+$$
+
 2. **Evolution of digits 1 ($U_{n+1}$):**
 
-   $$
-   U_{n+1} = D_n^{(0)} + V_n^{(1)} + p_n = D_n - 2D_n^{(1)} + p_n - \frac{U_n - p_n}{2} + K_n
-   $$
+$$
+U_{n+1} = D_n^{(0)} + V_n^{(1)} + p_n = D_n - 2D_n^{(1)} + p_n - \frac{U_n - p_n}{2} + K_n
+$$
+
 3. **Evolution of the Sum of Digits ($\Delta \Sigma_3$):**
 
-   $$
-   \Sigma_3(a_{n+1}) - \Sigma_3(a_n) = V_n^{(1)} - D_n^{(0)}
-   $$
+$$
+\Sigma_3(a_{n+1}) - \Sigma_3(a_n) = V_n^{(1)} - D_n^{(0)}
+$$
 
    *Summing from $n = 0$ to $N - 1$ (with* $\Sigma_3(a_0) = \Sigma_3(22_3) = 4$*), we obtain the **Ternary Phase Balance Theorem**:*
 
-   $$
-   \sum_{n=0}^{N-1} \left( V_n^{(1)} - D_n^{(0)} \right) = \Sigma_3(a_N) - 4
-   $$
+$$
+\sum_{n=0}^{N-1} \left( V_n^{(1)} - D_n^{(0)} \right) = \Sigma_3(a_N) - 4
+$$
+
 4. **Universal Tail Theorem after an Odd Run:** *Upon completion of any odd run of length $m \ge 2$ at the even state $a_{t+m} = 3^m d + 1$, the first subsequent even step generates the state:*
 
-   $$
-   a_{t+m+1} = 3^m \left(\frac{3d - 1}{2}\right) + \frac{3^m + 3}{2}
-   $$
+$$
+a_{t+m+1} = 3^m \left(\frac{3d - 1}{2}\right) + \frac{3^m + 3}{2}
+$$
 
    *whose last $m$ digits in base $3$ form the universal buffer independent of $d$:*
 
-   $$
-   a_{t+m+1} \bmod 3^m = \frac{3^m + 3}{2} = \underbrace{11\dots 1}_{m-2 \text{ ones}} 20_3
-   $$
+$$
+a_{t+m+1} \bmod 3^m = \frac{3^m + 3}{2} = \underbrace{11\dots 1}_{m-2 \text{ ones}} 20_3
+$$
 
 **Complete Proof of Theorem 14.1:**
 We evaluate the exact formula $\tau_{n+1, k+1} = \frac{3c_{n, k+1} + \tau_{n, k} - c_{n, k}}{2}$ across the six exhaustive and mutually exclusive classes of positions $k \in \{0, 1, \dots, L_n\}$:
@@ -1462,9 +1493,9 @@ In order to establish with precision the scope of this work and what remains ope
 
 1. The Halting Problem of Antihydra [Global Open Problem]: Consists in determining whether there exists any integer $N \ge 1$ such that $b_N = -1$ for the orbit $a_0 = 8, a_{n+1} = \lfloor 3a_n / 2 \rfloor$. As we proved in Theorems 1.0, 5.1(4), and 12.1, this question is **logically equivalent** to deciding whether there exists any integer $P \ge 1$ for which the Diophantine polynomial system over $(Y_0, Y_1, \dots, Y_{3P+1}) \in (\mathbb{Z}_{\ge 1})^{3P+2}$:
 
-   $$
-   \begin{cases} (3Y_{j+1} - 2Y_j)(3Y_{j+1} - 2Y_j - 1) = 0 & \forall j \in \{0, 1, \dots, 3P\} \\ Y_{3P+1} = 8 \\ \sum_{j=1}^{3P} Y_j - 2Y_0 = 2P - 23 \end{cases}
-   $$
+$$
+\begin{cases} (3Y_{j+1} - 2Y_j)(3Y_{j+1} - 2Y_j - 1) = 0 & \forall j \in \{0, 1, \dots, 3P\} \\ Y_{3P+1} = 8 \\ \sum_{j=1}^{3P} Y_j - 2Y_0 = 2P - 23 \end{cases}
+$$
 
    admits an integer solution. This problem remains open.
 2. **Mahler's Classical Problem on** $Z$**-Numbers** (Mahler [1968]):
@@ -1472,22 +1503,24 @@ In order to establish with precision the scope of this work and what remains ope
 3. **The Behavior of the Specific Sequence $\{\alpha(3/2)^n\}$ of Antihydra:**
    By Theorem 4.1(3) and Corollary 4.2(1), for the specific constant $\alpha \approx 7.8641772620566189724\dots$, we have $R_n = a_n - \alpha(3/2)^n = 1 - \{\alpha(3/2)^n\} \in (0, 1)$, and the parity $p_n \in \{0, 1\}$ is determined by the threshold $1/3$:
 
-   $$
-   p_n = 0 \iff R_n \in \left(0, \frac{2}{3}\right) \iff \left\{\alpha\left(\frac{3}{2}\right)^n\right\} \in \left(\frac{1}{3}, 1\right), \qquad p_n = 1 \iff R_n \in \left(\frac{1}{3}, 1\right) \iff \left\{\alpha\left(\frac{3}{2}\right)^n\right\} \in \left(0, \frac{1}{3}\right)
-   $$
+$$
+p_n = 0 \iff R_n \in \left(0, \frac{2}{3}\right) \iff \left\{\alpha\left(\frac{3}{2}\right)^n\right\} \in \left(\frac{1}{3}, 1\right), \qquad p_n = 1 \iff R_n \in \left(\frac{1}{3}, 1\right) \iff \left\{\alpha\left(\frac{3}{2}\right)^n\right\} \in \left(0, \frac{1}{3}\right)
+$$
+
 4. **What Distribution Result Would Be Needed by the Specific Strategy of Corollary 4.2(2) (and why there is no proved equivalence):**
 
    - *Dependence within the Archimedean approach:* In Corollary 4.2(2) we proved the exact identity:
 
-     $$
-     b_N = \sum_{k=0}^{N-1} (2 - 3R_k) + 6(R_N - R_0) = 3\sum_{k=0}^{N-1} \left(\left\{\alpha\left(\frac{3}{2}\right)^k\right\} - \frac{1}{3}\right) + 6(R_N - R_0)
-     $$
+$$
+b_N = \sum_{k=0}^{N-1} (2 - 3R_k) + 6(R_N - R_0) = 3\sum_{k=0}^{N-1} \left(\left\{\alpha\left(\frac{3}{2}\right)^k\right\} - \frac{1}{3}\right) + 6(R_N - R_0)
+$$
 
      For **this specific analytic strategy** alone to prove the non-halting of Antihydra (that is, $b_N \ge 0$ for all $N \ge 1$), one does not even need full Weyl equidistribution in $[0, 1]$ (which would give $\lim_{N\to\infty} \frac{1}{N}\sum_{k=0}^{N-1} R_k = \frac{1}{2}$ and $b_N \sim \frac{N}{2} \to +\infty$), but solely the one-sided bound on the Cesàro means:
 
-     $$
-     \frac{1}{N}\sum_{k=0}^{N-1} R_k \le \frac{2}{3} - \frac{6R_0}{3N} \qquad \text{(or } \frac{1}{N}\sum_{k=0}^{N-1} \mathbf{1}_{\{\alpha(3/2)^k\} \in (0, 1/3)} \le \frac{2}{3}\text{ for all } N \ge 1\text{)}
-     $$
+$$
+\frac{1}{N}\sum_{k=0}^{N-1} R_k \le \frac{2}{3} - \frac{6R_0}{3N} \qquad \text{(or } \frac{1}{N}\sum_{k=0}^{N-1} \mathbf{1}_{\{\alpha(3/2)^k\} \in (0, 1/3)} \le \frac{2}{3}\text{ for all } N \ge 1\text{)}
+$$
+
    - *Absence of proved logical equivalence:* It is essential to record that:
 
      1. Resolving Mahler's classical problem (on $Z$-numbers with threshold $1/2$ for all $\xi$) **is not equivalent** to resolving Antihydra (which concerns a single explicit constant $\alpha$ with threshold $1/3$ in the cumulative mean).
@@ -1524,24 +1557,27 @@ $$
 *Proof:*
 1. Substituting $2k_n = a_n - 4 - p_n$ into $3k_n^2 + 12k_n = \frac{3}{4}(2k_n)(2k_n + 8)$ and using $p_n^2 = p_n$:
 
-   $$
-   3k_n^2 + 12k_n = \frac{3}{4}(a_n - 4 - p_n)(a_n + 4 - p_n) = \frac{3}{4}\big((a_n - p_n)^2 - 16\big) = \frac{3}{4}a_n^2 - \frac{3}{2}a_n p_n + \frac{3}{4}p_n - 12.
-   $$
+$$
+3k_n^2 + 12k_n = \frac{3}{4}(a_n - 4 - p_n)(a_n + 4 - p_n) = \frac{3}{4}\big((a_n - p_n)^2 - 16\big) = \frac{3}{4}a_n^2 - \frac{3}{2}a_n p_n + \frac{3}{4}p_n - 12.
+$$
+
 2. On the other hand, from the fundamental recurrence $2a_{n+1} = 3a_n - p_n$, squaring both sides yields:
 
-   $$
-   4a_{n+1}^2 = (3a_n - p_n)^2 = 9a_n^2 - 6a_n p_n + p_n \implies -\frac{3}{2}a_n p_n = a_{n+1}^2 - \frac{9}{4}a_n^2 - \frac{1}{4}p_n.
-   $$
+$$
+4a_{n+1}^2 = (3a_n - p_n)^2 = 9a_n^2 - 6a_n p_n + p_n \implies -\frac{3}{2}a_n p_n = a_{n+1}^2 - \frac{9}{4}a_n^2 - \frac{1}{4}p_n.
+$$
+
 3. Substituting this expression for $-\frac{3}{2}a_n p_n$ into step 1 eliminates the cross-term completely:
 
-   $$
-   3k_n^2 + 12k_n = \frac{3}{4}a_n^2 + \left(a_{n+1}^2 - \frac{9}{4}a_n^2 - \frac{1}{4}p_n\right) + \frac{3}{4}p_n - 12 = a_{n+1}^2 - \frac{3}{2}a_n^2 + \frac{1}{2}p_n - 12.
-   $$
+$$
+3k_n^2 + 12k_n = \frac{3}{4}a_n^2 + \left(a_{n+1}^2 - \frac{9}{4}a_n^2 - \frac{1}{4}p_n\right) + \frac{3}{4}p_n - 12 = a_{n+1}^2 - \frac{3}{2}a_n^2 + \frac{1}{2}p_n - 12.
+$$
+
 4. Combining both branches of Theorem 1.0(2) via $\Delta t_n = 2(1 - p_n)b_n + (3k_n^2 + 12k_n) + 11 - 6p_n$, we obtain:
 
-   $$
-   \Delta t_n = a_{n+1}^2 - \frac{3}{2}a_n^2 + 2(1 - p_n)b_n - 1 - \frac{11}{2}p_n. \quad \blacksquare
-   $$
+$$
+\Delta t_n = a_{n+1}^2 - \frac{3}{2}a_n^2 + 2(1 - p_n)b_n - 1 - \frac{11}{2}p_n. \quad \blacksquare
+$$
 
 ---
 
@@ -1568,14 +1604,16 @@ $$
 *Proof:*
 1. Summing Theorem 15.1 over $n = 0, \dots, N-1$ and noting that $\sum_{n=0}^{N-1} (a_{n+1}^2 - \frac{3}{2}a_n^2) = a_N^2 - a_0^2 - \frac{1}{2}\sum_{n=0}^{N-1} a_n^2$ (with $a_0^2 = 64$) gives:
 
-   $$
-   T_N - 11 = a_N^2 - 64 - \frac{1}{2}\sum_{n=0}^{N-1} a_n^2 + 2\sum_{n=0}^{N-1} b_n - 2\sum_{n=0}^{N-1} b_n p_n - N - \frac{11}{2}O_N.
-   $$
+$$
+T_N - 11 = a_N^2 - 64 - \frac{1}{2}\sum_{n=0}^{N-1} a_n^2 + 2\sum_{n=0}^{N-1} b_n - 2\sum_{n=0}^{N-1} b_n p_n - N - \frac{11}{2}O_N.
+$$
+
 2. Multiply by $6$ and substitute both the Quadratic Virial Theorem (Theorem 6.1: $-12\sum_{n=0}^{N-1} b_n p_n = -8\sum_{n=0}^{N-1} b_n - 4N + 2b_N(b_N - 1)$) and the triad identity $3O_N = 2N - b_N$:
 
-   $$
-   6T_N - 66 = 6a_N^2 - 384 - 3\sum_{n=0}^{N-1} a_n^2 + 12\sum_{n=0}^{N-1} b_n + \left(-8\sum_{n=0}^{N-1} b_n - 4N + 2b_N^2 - 2b_N\right) - 6N - 11(2N - b_N).
-   $$
+$$
+6T_N - 66 = 6a_N^2 - 384 - 3\sum_{n=0}^{N-1} a_n^2 + 12\sum_{n=0}^{N-1} b_n + \left(-8\sum_{n=0}^{N-1} b_n - 4N + 2b_N^2 - 2b_N\right) - 6N - 11(2N - b_N).
+$$
+
 3. Collecting terms yields $6T_N + 3\sum_{n=0}^{N-1} a_n^2 - 4\sum_{n=0}^{N-1} b_n = 6a_N^2 + 2b_N^2 + 9b_N - 32N - 318$. $\blacksquare$
 
 ---
@@ -1604,16 +1642,16 @@ In $\mathbb{Z}_2$, every seed $x_0 \in \mathbb{Z}_2$ defines a parity sequence $
 **Theorem 16.2 (Fuss-Catalan Enumeration of First-Halting Cylinders and Golden-Ratio Haar Measure)** [Proved]:
 1. *For $b_0 = 0$ and any integer $P \ge 0$, a seed $x_0 \in \mathbb{Z}_2$ hits $b_N = -1$ for the **first time** at step $N$ ($b_n \ge 0$ for $0 \le n < N$ and $b_N = -1$) if and only if $N = 3P + 1$ for some $P \ge 0$ and its prefix $(p_0, \dots, p_{3P}) \in \{0, 1\}^{3P+1}$ is a Raney ballot word of $P$ zeros and $2P + 1$ ones. The exact number of such residue classes modulo $2^{3P+1}$ is the Fuss-Catalan number:*
 
-   $$
-   |\mathcal{H}_P| = C_P^{(3)} := \frac{1}{3P + 1}\binom{3P + 1}{P} = \frac{1}{2P + 1}\binom{3P}{P}, \qquad \mu_2(\mathcal{H}_P) = \frac{C_P^{(3)}}{2^{3P+1}}.
-   $$
+$$
+|\mathcal{H}_P| = C_P^{(3)} := \frac{1}{3P + 1}\binom{3P + 1}{P} = \frac{1}{2P + 1}\binom{3P}{P}, \qquad \mu_2(\mathcal{H}_P) = \frac{C_P^{(3)}}{2^{3P+1}}.
+$$
 
    *(Specifically, for $P = 0, 1, 2, 3, 4$, there are $C_P^{(3)} = 1, 1, 3, 12, 55$ halting residue classes out of $2, 16, 128, 1024, 8192$ classes modulo $2^{3P+1}$, respectively).*
 2. *Summing over all disjoint first-hitting horizons $P \ge 0$, the exact 2-adic Haar measure of the set of all halting seeds $\mathcal{H}_{\text{all}}(b_0) \subset \mathbb{Z}_2$ from any initial counter $b_0 \ge 0$ is a power of the inverse Golden Ratio $\varphi^{-1} = \frac{\sqrt{5} - 1}{2}$:*
 
-   $$
-   \mu_2\big(\mathcal{H}_{\text{all}}(b_0)\big) = \sum_{P=0}^\infty \frac{C_P^{(3)}}{2^{3P+1}} \quad (b_0 = 0) \implies \mu_2\big(\mathcal{H}_{\text{all}}(b_0)\big) = \left(\frac{\sqrt{5} - 1}{2}\right)^{b_0 + 1} = \varphi^{-(b_0 + 1)}.
-   $$
+$$
+\mu_2\big(\mathcal{H}_{\text{all}}(b_0)\big) = \sum_{P=0}^\infty \frac{C_P^{(3)}}{2^{3P+1}} \quad (b_0 = 0) \implies \mu_2\big(\mathcal{H}_{\text{all}}(b_0)\big) = \left(\frac{\sqrt{5} - 1}{2}\right)^{b_0 + 1} = \varphi^{-(b_0 + 1)}.
+$$
 
    *Consequently, for $b_0 = 0$, the set of non-halting 2-adic seeds has strictly positive Haar measure $\mu_2(\mathbb{Z}_2 \setminus \mathcal{H}_{\text{all}}(0)) = 1 - \varphi^{-1} = \varphi^{-2} = \frac{3 - \sqrt{5}}{2} \approx 0.381966$.*
 
@@ -1621,9 +1659,9 @@ In $\mathbb{Z}_2$, every seed $x_0 \in \mathbb{Z}_2$ defines a parity sequence $
 1. Since $b_{n+1} - b_n \in \{+2, -1\}$ only steps downward by $-1$, the first passage from $b_0 = 0$ to $-1$ must occur at $-1 = 2N - 3O_N$, so $N = 3P + 1$ with $P = N - O_N$ zeros and $O_N = 2P + 1$ ones. By Raney's Lemma (the Fuss-Catalan Ballot Theorem), among the $\binom{3P+1}{P}$ cyclic shifts of a word with $P$ steps of $+2$ and $2P+1$ steps of $-1$ (total sum $-1$), exactly $1$ shift stays $\ge 0$ until the final step $3P + 1$. Thus the number of valid words is $\frac{1}{3P+1}\binom{3P+1}{P} = C_P^{(3)}$. By Theorem 16.1, each word of length $3P + 1$ corresponds to a unique cylinder modulo $2^{3P+1}$ of Haar measure $2^{-(3P+1)}$.
 2. By Lagrange inversion, the Fuss-Catalan generating function $w(z) = \sum_{P=0}^\infty C_P^{(3)} z^P$ satisfies $z w(z)^3 - w(z) + 1 = 0$. Since the series $\sum_{P=0}^\infty \frac{C_P^{(3)}}{2^{3P+1}} = \frac{1}{2}w(1/8)$ has positive terms and represents a probability $\rho = \frac{1}{2}w(1/8) \in (0, 1]$, substituting $w = 2\rho$ and $z = 1/8$ into $z w^3 - w + 1 = 0$ yields:
 
-   $$
-   \rho^3 - 2\rho + 1 = (\rho - 1)(\rho^2 + \rho - 1) = 0.
-   $$
+$$
+\rho^3 - 2\rho + 1 = (\rho - 1)(\rho^2 + \rho - 1) = 0.
+$$
 
    Since $\sum_{P=0}^\infty C_P^{(3)} z^P$ is strictly increasing on $[0, 4/27]$ (with critical point at $z_c = 4/27 > 1/8 = 3.375/27$, where $w(4/27) = 3/2$), we have $w(1/8) < 3/2 < 2$, so $\rho < 3/4 < 1$. The unique root of $(\rho - 1)(\rho^2 + \rho - 1) = 0$ in $(0, 1)$ is $\rho = \frac{\sqrt{5} - 1}{2} = \varphi^{-1}$. Since a downward step is $-1$, hitting $-1$ from $b_0 \ge 0$ requires $b_0 + 1$ independent first-passage descents of $-1$, giving $\mu_2(\mathcal{H}_{\text{all}}(b_0)) = \rho^{b_0 + 1} = \varphi^{-(b_0 + 1)}$. $\blacksquare$
 
@@ -1636,19 +1674,19 @@ Even for a **single deterministic orbit** (such as the Antihydra orbit starting 
 **Theorem 16.3 (Deterministic Golden Difference Identity and Dual Integer Fibonacci Conservation Laws)** [Proved]: *Along any trajectory of the Antihydra system $(a_n, b_n)$ starting from $b_0 = 0$:*
 1. **Golden Difference Identity:** *For every $n \ge 0$, the quantity $\varphi^{-b_n} \in \mathbb{Z}[\varphi]$ satisfies:*
 
-   $$
-   \varphi^{-b_{n+1}} - \varphi^{-b_n} = (2p_n - 1)\varphi^{-(b_n + 1)}.
-   $$
+$$
+\varphi^{-b_{n+1}} - \varphi^{-b_n} = (2p_n - 1)\varphi^{-(b_n + 1)}.
+$$
 
 2. **Dual Integer Fibonacci Conservation Laws:** *For every $N \ge 1$, separating the rational and $\varphi$-components in $\mathbb{Z}[\varphi]$ yields two exact integer identities:*
 
-   $$
-   (-1)^{b_N} F_{b_N} = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 1},
-   $$
+$$
+(-1)^{b_N} F_{b_N} = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 1},
+$$
 
-   $$
-   (-1)^{b_N} F_{b_N + 1} - 1 = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 2}.
-   $$
+$$
+(-1)^{b_N} F_{b_N + 1} - 1 = \sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 2}.
+$$
 
    *In particular, at any hypothetical halting horizon $b_N = -1$ ($F_{-1} = 1, F_0 = 0$), these specialize to $\sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 1} = -1$ and $\sum_{n=0}^{N-1} (2p_n - 1)(-1)^{b_n + 1} F_{b_n + 2} = -1$.*
 
@@ -1673,21 +1711,21 @@ $$
 *Then the single formal series $\mathcal{S}(p) = \sum_{k=0}^\infty \frac{2^k}{3^{k+1}}p_k$ links all three local completions of $\mathcal{E}_S = \mathbb{R} \times \mathbb{Z}_2 \times \mathbb{Z}_3$ simultaneously:*
 1. **In the Archimedean topology $\mathbb{R}$ ($|\cdot|_\infty$):** *Since $|2/3|_\infty = 2/3 < 1$, $\mathcal{S}_N(p)$ converges geometrically to the initial fractional shift $R_0$:*
 
-   $$
-   \lim_{N \to \infty}^{\mathbb{R}} \mathcal{S}_N(p) = 8 - \alpha = R_0 \approx 0.135822737943381\dots \in (0, 1).
-   $$
+$$
+\lim_{N \to \infty}^{\mathbb{R}} \mathcal{S}_N(p) = 8 - \alpha = R_0 \approx 0.135822737943381\dots \in (0, 1).
+$$
 
 2. **In the 2-adic topology $\mathbb{Z}_2$ ($|\cdot|_2$):** *Since $|2/3|_2 = 1/2 < 1$ and $a_N \in \mathbb{Z} \subset \mathbb{Z}_2$, the remainder satisfies $|8 - \mathcal{S}_N(p)|_2 = |(2/3)^N a_N|_2 \le 2^{-N} \to 0$, so the exact same series converges 2-adically to the integer seed $a_0 = 8$:*
 
-   $$
-   \lim_{N \to \infty}^{\mathbb{Z}_2} \mathcal{S}_N(p) = 8 = a_0 \in \mathbb{Z}_2.
-   $$
+$$
+\lim_{N \to \infty}^{\mathbb{Z}_2} \mathcal{S}_N(p) = 8 = a_0 \in \mathbb{Z}_2.
+$$
 
 3. **In the 3-adic topology $\mathbb{Z}_3$ ($|\cdot|_3$):** *Clearing the denominator $3^N$ projects $\mathcal{S}_N(p)$ directly onto the 3-adic Cantor residue class of $a_N$:*
 
-   $$
-   3^N \mathcal{S}_N(p) = 8 \cdot 3^N - 2^N a_N \equiv -2^N a_N \pmod{3^N}.
-   $$
+$$
+3^N \mathcal{S}_N(p) = 8 \cdot 3^N - 2^N a_N \equiv -2^N a_N \pmod{3^N}.
+$$
 
 *Proof:*
 From $2a_{k+1} = 3a_k - p_k$, dividing by $3^{k+1}/2^k$ telescopes $\sum_{k=0}^{N-1} \frac{2^k}{3^{k+1}}p_k = a_0 - \left(\frac{2}{3}\right)^N a_N = 8 - \left(\frac{2}{3}\right)^N a_N$. Taking limits in $|\cdot|_\infty$ (Theorem 4.1), in $|\cdot|_2$ (where $|3^{-N}|_2 = 1$ and $|2^N a_N|_2 \le 2^{-N}$), and reducing $3^N \mathcal{S}_N(p) \pmod{3^N}$ establishes (1), (2), and (3). $\blacksquare$
@@ -1713,24 +1751,27 @@ $$
 *Proof:*
 1. Let $\delta_n = b_{n+1} - b_n = 2 - 3p_n$. Since $p_n^2 = p_n$ and $p_n^3 = p_n$, the powers of $\delta_n$ are linear in $p_n$:
 
-   $$
-   \delta_n = 2 - 3p_n, \qquad \delta_n^2 = 4 - 12p_n + 9p_n = 4 - 3p_n, \qquad \delta_n^3 = 8 - 9p_n.
-   $$
+$$
+\delta_n = 2 - 3p_n, \qquad \delta_n^2 = 4 - 12p_n + 9p_n = 4 - 3p_n, \qquad \delta_n^3 = 8 - 9p_n.
+$$
+
 2. Expanding $b_{n+1}^3 - b_n^3 = 3b_n^2 \delta_n + 3b_n \delta_n^2 + \delta_n^3$ gives:
 
-   $$
-   b_{n+1}^3 - b_n^3 = 6b_n^2 - 9b_n^2 p_n + 12b_n - 9b_n p_n + 8 - 9p_n.
-   $$
+$$
+b_{n+1}^3 - b_n^3 = 6b_n^2 - 9b_n^2 p_n + 12b_n - 9b_n p_n + 8 - 9p_n.
+$$
+
 3. Summing from $n = 0$ to $N - 1$ (with $b_0 = 0$) and multiplying by $2$:
 
-   $$
-   18\sum_{n=0}^{N-1} b_n^2 p_n = 12\sum_{n=0}^{N-1} b_n^2 + 24\sum_{n=0}^{N-1} b_n - 18\sum_{n=0}^{N-1} b_n p_n + 16N - 18O_N - 2b_N^3.
-   $$
+$$
+18\sum_{n=0}^{N-1} b_n^2 p_n = 12\sum_{n=0}^{N-1} b_n^2 + 24\sum_{n=0}^{N-1} b_n - 18\sum_{n=0}^{N-1} b_n p_n + 16N - 18O_N - 2b_N^3.
+$$
+
 4. Substituting $-18\sum_{n=0}^{N-1} b_n p_n = -12\sum_{n=0}^{N-1} b_n - 6N + 3b_N(b_N - 1)$ (from Theorem 6.1) and $-18O_N = -12N + 6b_N$ yields:
 
-   $$
-   18\sum_{n=0}^{N-1} b_n^2 p_n = 12\sum_{n=0}^{N-1} (b_n^2 + b_n) - 2b_N^3 + 3b_N^2 + 3b_N - 2N. \quad \blacksquare
-   $$
+$$
+18\sum_{n=0}^{N-1} b_n^2 p_n = 12\sum_{n=0}^{N-1} (b_n^2 + b_n) - 2b_N^3 + 3b_N^2 + 3b_N - 2N. \quad \blacksquare
+$$
 
 ---
 
@@ -1743,28 +1784,28 @@ In Part XII (Theorem 12.2), we proved that if $N = 3P + 1 \ge 4$ ($P \ge 1$) is 
 **Theorem 18.1 (Unconditional Modulo-27 / Modulo-54 First-Halting Sieve)** [Proved]: *Let $N = 3P + 1 \ge 4$ ($P \ge 1$) be the first halting step ($b_n \ge 0$ for $0 \le n < N$ and $b_N = -1$). Then:*
 1. **Triple Odd Terminal Suffix:** *The final three steps before $N$ are unconditionally odd:*
 
-   $$
-   (p_{N-3}, p_{N-2}, p_{N-1}) = (1, 1, 1), \qquad (b_{N-3}, b_{N-2}, b_{N-1}, b_N) = (2, 1, 0, -1).
-   $$
+$$
+(p_{N-3}, p_{N-2}, p_{N-1}) = (1, 1, 1), \qquad (b_{N-3}, b_{N-2}, b_{N-1}, b_N) = (2, 1, 0, -1).
+$$
 
 2. **Unconditional Modulo-27 and Modulo-54 Sieve:** *Every first halting state $a_{3P+1}$ ($P \ge 1$) satisfies unconditionally:*
 
-   $$
-   a_{3P+1} \equiv 1 \pmod{27}, \qquad \Psi(P) = 2(a_{3P+1} - 1) \equiv 0 \pmod{54}.
-   $$
+$$
+a_{3P+1} \equiv 1 \pmod{27}, \qquad \Psi(P) = 2(a_{3P+1} - 1) \equiv 0 \pmod{54}.
+$$
 
    *Moreover, splitting by the parity of $a_{3P+1}$:*
    - *If halting occurs at the closure of a macro-cycle ($a_{3P+1}$ even, $B_K = -1$), then $m_K \ge 3$ and:*
 
-     $$
-     \Psi(P_K) = 2(a_{3P_K + 1} - 1) \equiv 54 \pmod{108}.
-     $$
+$$
+\Psi(P_K) = 2(a_{3P_K + 1} - 1) \equiv 54 \pmod{108}.
+$$
 
    - *If halting occurs in the interior of an odd run ($a_{3P+1}$ odd, $B_K \le -2$), then:*
 
-     $$
-     \Psi(P) = 2(a_{3P+1} - 1) \equiv 0 \pmod{108}.
-     $$
+$$
+\Psi(P) = 2(a_{3P+1} - 1) \equiv 0 \pmod{108}.
+$$
 
 *Proof:*
 1. By Theorem 12.2, $b_N = -1$ and $b_{N-1}, b_{N-2} \ge 0$ force $p_{N-1} = 1$ ($b_{N-1} = 0$) and $p_{N-2} = 1$ ($b_{N-2} = 1$). At step $N - 3 \ge 1$, we have $b_{N-2} = b_{N-3} + 2 - 3p_{N-3} = 1$. If $p_{N-3} = 0$, then $b_{N-3} = 1 - 2 = -1$, contradicting that $N$ is the **first** step at which the counter reaches $-1$. Therefore $p_{N-3} = 1$ and $b_{N-3} = 2$.
@@ -1779,9 +1820,9 @@ More generally, at any first halting step $N = 3P + 1 \ge M$, the condition that
 **Theorem 18.2 (Closed-Form Ballot Enumeration of Admissible Terminal Classes Modulo $3^M$)** [Proved]: *For any depth $M \ge 1$ and any first halting step $N = 3P + 1 \ge M$, let $\mathcal{A}_M \subset \mathcal{R}_M \subset \mathbb{Z}/3^M\mathbb{Z}$ denote the set of terminal residue classes $a_N \bmod 3^M$ compatible with $b_{N-k} \ge 0$ ($1 \le k \le M$) and $b_N = -1$. Then:*
 1. **Exact Closed-Form Cardinality $B_M$:** *The number of suffix-admissible residue classes modulo $3^M$ is given in closed form by:*
 
-   $$
-   |\mathcal{A}_M| = B_M := \sum_{k=0}^{\lfloor (M-1)/3 \rfloor} \frac{M - 3k}{M}\binom{M}{k} = \sum_{k=0}^{\lfloor (M-1)/3 \rfloor} \left[\binom{M-1}{k} - 2\binom{M-1}{k-1}\right],
-   $$
+$$
+|\mathcal{A}_M| = B_M := \sum_{k=0}^{\lfloor (M-1)/3 \rfloor} \frac{M - 3k}{M}\binom{M}{k} = \sum_{k=0}^{\lfloor (M-1)/3 \rfloor} \left[\binom{M-1}{k} - 2\binom{M-1}{k-1}\right],
+$$
 
    *where $\binom{M-1}{-1} := 0$.*
 2. **Explicit Sieve Table for $1 \le M \le 9$:** *The exact counts $B_M$ and residue classes $\mathcal{A}_M \pmod{3^M}$ for small $M$ are:*
@@ -1865,7 +1906,6 @@ from math import comb
 # Configure 80 decimal digits of precision for Archimedean verifications
 getcontext().prec = 80
 
-
 def v_p(n: int, p: int) -> int:
     """Computes the exact p-adic valuation of a non-zero integer n."""
     if n == 0:
@@ -1875,7 +1915,6 @@ def v_p(n: int, p: int) -> int:
         n //= p
         k += 1
     return k
-
 
 def base3_digits_and_phases(val: int):
     """
@@ -1903,13 +1942,11 @@ def base3_digits_and_phases(val: int):
     sigma3 = U + 2 * (D0 + D1)
     return U, D0, D1, V0, V1, K, sigma3, c[0]
 
-
 def cyclotomic_mul(x, y):
     """Exact multiplication in Q(omega) with omega^2 = -1 - omega: (a + b*w)*(c + d*w)."""
     a, b = x
     c, d = y
     return (a * c - b * d, a * d + b * c - b * d)
-
 
 def cyclotomic_pow_unit(root_idx: int, exp: int):
     """
@@ -1925,7 +1962,6 @@ def cyclotomic_pow_unit(root_idx: int, exp: int):
         return (Fraction(0), Fraction(1))
     else:
         return (Fraction(-1), Fraction(-1))
-
 
 def verify_antihydra_selected_identities(N_steps: int = 300, num_ciclos: int = 15):
     # 0. Generation of the exact integer trajectory up to N_steps
@@ -2449,7 +2485,6 @@ def verify_antihydra_selected_identities(N_steps: int = 300, num_ciclos: int = 1
     print(f"     Certified constant: alpha = {str(alpha_min_dec)[:56]}...")
     print(f"     Bound at M=300: (2/3)^300 = {str(err_dec)[:22]}e-53 < 1.49e-53")
     print(f"     State at N={N_steps}: a_N = {a[N_steps]}, b_N = {b[N_steps]}, O_N = {O[N_steps]}")
-
 
 if __name__ == "__main__":
     verify_antihydra_selected_identities(300, 15)

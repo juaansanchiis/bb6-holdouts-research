@@ -33,7 +33,7 @@
 The $6$-state, $2$-symbol Turing machine known as **Antihydra** (discovered within *The Busy Beaver Challenge* project by `mxdys` and whose high-level rules were deduced by `Racheline` on June 28, 2024; see Ligocki [2024] and *BusyBeaverWiki* [2024]) has the standard code in `bbchallenge` format:
 
 $$
-\texttt{1RB1RA\\_0LC1LE\\_1LD1LC\\_1LA0LB\\_1LF1RE\\_---0RA}
+\texttt{1RB1RA\_0LC1LE\_1LD1LC\_1LA0LB\_1LF1RE\_---0RA}
 $$
 
 Its explicit transition table over the state set $Q = \lbrace A, B, C, D, E, F\rbrace$ (with initial state $A$) and tape alphabet $\Sigma = \lbrace 0, 1\rbrace$ (with initially blank tape $0^\infty$) is:
@@ -1364,7 +1364,7 @@ $$
 We define the global counts of digits $0$, $1$, and $2$ in the support $\lbrace 0, 1, \dots, L _ n\rbrace$:
 
 $$
-V_n := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0\rbrace , \quad U_n := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 1\rbrace , \quad D_n := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2\rbrace
+V_n := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0\rbrace , \quad U_n := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 1\rbrace , \quad D_n := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2\rbrace
 $$
 
 so that $V _ n + U _ n + D _ n = L _ n + 1$. Since $3^k \equiv 1 \pmod 2$, the sum of digits is $\Sigma _ 3(a _ n) := \sum _ {k=0}^{L _ n} \tau _ {n, k} = U _ n + 2D _ n$ and the parity bit is:
@@ -1380,7 +1380,7 @@ In the exact division by $2$ given by $a _ {n+1} = \frac{3a _ n - p _ n}{2} = \f
 2. **Local transition recurrence (for $k = L _ n, L _ n - 1, \dots, 0$):**
 
 $$
-c_{n, k} := (c_{n, k+1} + \tau_{n, k}) \bmod 2 = \left( \sum_{j=k}^{L_n} \tau_{n, j} \right) \bmod 2 = \\#\lbrace k \le j \le L_n : \tau_{n, j} = 1\rbrace \bmod 2 \in \lbrace 0, 1\rbrace
+c_{n, k} := (c_{n, k+1} + \tau_{n, k}) \bmod 2 = \left( \sum_{j=k}^{L_n} \tau_{n, j} \right) \bmod 2 = \#\lbrace k \le j \le L_n : \tau_{n, j} = 1\rbrace \bmod 2 \in \lbrace 0, 1\rbrace
 $$
 
    That is, when scanning from left to right, the phase state toggles ($0 \leftrightarrow 1$) if and only if a digit $\tau _ {n, k} = 1$ is read, and remains invariant ($c _ {n, k} = c _ {n, k+1}$) when $\tau _ {n, k} \in \lbrace 0, 2\rbrace$ is read.
@@ -1403,19 +1403,19 @@ Since for every position $k$ with $\tau _ {n, k} \in \lbrace 0, 2\rbrace$ the in
 - **In Inactive Phase ($c _ {n, k} = 0$):**
 
 $$
-V_n^{(0)} := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 0\rbrace , \qquad D_n^{(0)} := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 0\rbrace
+V_n^{(0)} := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 0\rbrace , \qquad D_n^{(0)} := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 0\rbrace
 $$
 
 - **In Active Phase ($c _ {n, k} = 1$):**
 
 $$
-V_n^{(1)} := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 1\rbrace , \qquad D_n^{(1)} := \\#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 1\rbrace
+V_n^{(1)} := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 0 \text{ and } c_{n, k} = 1\rbrace , \qquad D_n^{(1)} := \#\lbrace 0 \le k \le L_n : \tau_{n, k} = 2 \text{ and } c_{n, k} = 1\rbrace
 $$
 
   satisfying $V _ n = V _ n^{(0)} + V _ n^{(1)}$ and $D _ n = D _ n^{(0)} + D _ n^{(1)}$. Likewise, among the $U _ n$ digits equal to $1$ (read from left to right at positions $k _ 1 > k _ 2 > \dots > k _ {U _ n} \ge 0$), exactly $\frac{U _ n + p _ n}{2}$ have odd reading index $j$ (toggling the carry from $c _ {n, k+1} = 0$ to $c _ {n, k} = 1$) and exactly $\frac{U _ n - p _ n}{2}$ have even reading index $j$ (toggling from $c _ {n, k+1} = 1$ to $c _ {n, k} = 0$). The total number of positions $k \in \lbrace 0, \dots, L _ n\rbrace$ that receive an active incoming carry $c _ {n, k+1} = 1$ is:
 
 $$
-K_n := \\#\lbrace 0 \le k \le L_n : c_{n, k+1} = 1\rbrace = \frac{U_n - p_n}{2} + D_n^{(1)} + V_n^{(1)}
+K_n := \#\lbrace 0 \le k \le L_n : c_{n, k+1} = 1\rbrace = \frac{U_n - p_n}{2} + D_n^{(1)} + V_n^{(1)}
 $$
 
 Theorem 14.1 (Master Equations of the Ternary Automaton and Phase Balance) [Proved]: For every step $n \ge 0$, the counts of digits $1$ and $2$ of $a _ {n+1}$ and the sum of digits $\Sigma _ 3(a _ {n+1})$ obey the exact laws:

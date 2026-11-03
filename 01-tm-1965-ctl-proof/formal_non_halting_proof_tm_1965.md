@@ -11,23 +11,39 @@
 An earlier draft of this document proposed a pure 5-subtype regular Closed Tape Language ($\mathcal{I}_A$) claiming unconditional regular closure at the right boundary. Following peer review on the `bbchallenge` Discord by **Claude (Heron)**, three critical properties of that naive regular invariant were identified and confirmed:
 
 1. **Right-Boundary Reservoir Drain via Rule C ($t = 3868 \to 3908$):** At step $t = 3868$ (during Macro-Cycle 31), the configuration is
-   $$1^3\ 00\ 1^9\ 00\ 1^{17}\ 00\ 1^{36}\ 000\ [A]\ (10)^{18}\ 010,$$
+
+   $$
+   1^3\ 00\ 1^9\ 00\ 1^{17}\ 00\ 1^{36}\ 000\ [A]\ (10)^{18}\ 010,
+   $$
+
    which carries a trailing $010 = (01)^1 0$ immediately before $0^\infty$. Exactly $40$ steps later ($t = 3908$), the rightward sweep terminates in
-   $$1^3\ 00\ 1^9\ 00\ 1^{17}\ 00\ 1^{36}\ 000\ 1^{38}\ 00\ [A]\ 0^\infty,$$
+
+   $$
+   1^3\ 00\ 1^9\ 00\ 1^{17}\ 00\ 1^{36}\ 000\ 1^{38}\ 00\ [A]\ 0^\infty,
+   $$
    where the rightmost reservoir of $1$s has completely drained ($R = 0$), leaving the separator `00` immediately to the left of $[A]0^\infty$.
 2. **Transient Solitary Zeroes (`z = 1`) During Defect Propagation ($t = 13,978$):** At Macro-Cycle 107 ($t = 13,978$), when a leftward $C$-sweep stops inside an internal even block preceded by `00` (`z = 2`), it decrements that separator to a **solitary zero** (`0`, `z = 1`) and spawns `1^3 000` (`(3, 3)`) to its right:
-   $$1^8\ 000\ 1^{22}\ 000\ 1^{14}\ \mathbf{0}\ 1^3\ 000\ 1^{72}\ 000\ 1^{14}\ 000\ 1^{30}\ 000\ 1^{24}\ [A]\ 0^\infty.$$
+
+   $$
+   1^8\ 000\ 1^{22}\ 000\ 1^{14}\ \mathbf{0}\ 1^3\ 000\ 1^{72}\ 000\ 1^{14}\ 000\ 1^{30}\ 000\ 1^{24}\ [A]\ 0^\infty.
+   $$
 3. **Failure of Uncoupled Regular Languages:** Any regular language that allows arbitrary combinations of small odd blocks or defect headers next to small reservoirs without coupling reservoir size $R$ to carry depth $d$ admits halting configurations (for example, $1^3\ 00\ 1^5\ 00\ 1^3\ 00\ 1^2\ [A]$ halts at $t = 6764$, and $1^4\ 000\ [A]\ 10\ 010$ halts at $t = 436$).
 
 In this revised monograph, we replace the flawed 5-subtype CTL with the **exact closed-form algebraic theory** of Machine #1965, establishing six unconditional theorems and reducing global non-halting to a single explicit arithmetic coupling property verified over $161.8$ billion steps:
 
 - **Theorem 1 (Exact Closed-Form Macro-Simulator `macro_step`):** We derive the exact closed-form transition function mapping any right-boundary configuration $C_n = \dots [A] 0^\infty$ to $C_{n+1}$ (and its exact step count $\Delta t_n$). We prove that the rightward $A/E/F$-sweep is governed by three exact local rewrite rules (**Rules A, B, and C**), verified bit-for-bit against the underlying Turing machine across all $2,551$ right-boundary cycles in the first $5,000,000$ steps ($t = 4,996,151$) with zero discrepancies.
 - **Theorem 2 (Solitary-Zero Creation & 4-Stage $+8$ Promotion Lifecycle):** We prove from `macro_step` that a solitary zero (`z = 1`) can *never* be created in Phase 2, and whenever Phase 1 creates `z = 1` (by stopping inside an even block preceded by `00`), Phase 2 *always* places `(3, 3)` (`1^3 000`) immediately to its right: $(a, 1), (3, 3)$. On the first subsequent carry, the `000` separator forces a bounce that promotes `(3, 3)` to `(6, 2)` ($(a, 1), (6, 2)$); on the second carry, the even block `6` sweeps across `z = 1` in state $C$ (`C0 -> 1RA`) and **absorbs the solitary zero** into $(a+3, 3), (6, 3)$, which then climbs the $+8$ promotion ladder $6 \to 9 \to 12 \to 15 \to 14$.
-- **Theorem 3 (Universal Binary-Counter Bit-Growth Law):** To the left of the rightmost reservoir $(R, 0)$,blocks in $\Sigma_{\text{std}} = \{(\text{even} \ge 14, 000), (\text{odd} \ge 15, 00)\}$ act as `0`-bits and `1`-bits of a binary counter incremented every macro-cycle while $R$ decreases by $4$ every $2$ cycles. Because the *leftmost* crossed odd block in any carry bounce gains $+3$ (via Rule B) while all crossed odd blocks to its right lose $-1$ (via Rule A), **every counter bit $j \ge 1$ from the right grows by exactly $\Delta b_j = +3 + 3 + 3 - 1 = +8$ unary $1$s per $2^{j+1}$ macro-cycles** ($\Delta R = -2^{j+2}$), giving the exact growth law
-  $$\frac{\Delta b_j}{|\Delta R|} = \frac{1}{2^{j-1}}.$$
+- **Theorem 3 (Universal Binary-Counter Bit-Growth Law):** To the left of the rightmost reservoir $(R, 0)$,blocks in $\Sigma_{\text{std}} = \{(\text{even} \ge 14, 000), (\text{odd} \ge 15, 00)\}$ act as `0`-bits and `1`-bits of a binary counter incremented every macro-cycle while $R$ decreases by $4$ every $2$ cycles. Because the *leftmost* crossed odd block in any carry bounce gains $+3$ (via Rule B) while all crossed odd blocks to its right lose $-1$ (via Rule A), **every counter bit $j \ge 1$ from the right grows by exactly $\Delta b_j = +3 + 3 + 3 - 1 = +8$ unary $1$s per $2^{j+1}$ macro-cycles** ($\Delta R = -2^{j+2}$), giving the exact growth law:
+
+  $$
+  \frac{\Delta b_j}{|\Delta R|} = \frac{1}{2^{j-1}}.
+  $$
 - **Theorem 4 (Causal Shielding of the Rightmost Counter Bits):** During any macro-cycle in which the leftward $C$-sweep crosses $r \ge 2$ odd blocks $(b_r, 2), \dots, (b_1, 2)$ before stopping at depth $d = r + 1$, the evolution of bits $j = 1, \dots, r - 1$ and the reservoir $R$ is **100% causally independent** of the block configuration at depth $d \ge r + 1$ (provided no halt occurs).
 - **Theorem 5 (Exact Modulo-16 Collatz-Like Reservoir Recurrence):** By Theorems 3 and 4, the reservoir sizes $R_0 \equiv 0 \pmod 4$ at the start of each super-era (from Cycle 89, $R_0 = 60$, onward) satisfy $R_0 \equiv 4 \pmod 8$ and obey the exact piecewise-affine recurrence:
-  $$R_0^{\text{next}} = \begin{cases} \dfrac{3}{2} R_0 + 6 & \text{if } R_0 \equiv 4 \pmod{16} \quad \text{(2-era super-cycle: } R_0 \to R_0 + 6 \to \tfrac{3}{2}R_0 + 6\text{)}, \\[8pt] \dfrac{3}{2} R_0 + 10 & \text{if } R_0 \equiv 12 \pmod{16} \quad \text{(3-era super-cycle: } R_0 \to R_0 + 6 \to \tfrac{3}{2}R_0 + 8 \to \tfrac{3}{2}R_0 + 10\text{)}. \end{cases}$$
+
+  $$
+  R_0^{\text{next}} = \begin{cases} \dfrac{3}{2} R_0 + 6 & \text{if } R_0 \equiv 4 \pmod{16} \quad \text{(2-era super-cycle: } R_0 \to R_0 + 6 \to \tfrac{3}{2}R_0 + 6\text{)}, \\[8pt] \dfrac{3}{2} R_0 + 10 & \text{if } R_0 \equiv 12 \pmod{16} \quad \text{(3-era super-cycle: } R_0 \to R_0 + 6 \to \tfrac{3}{2}R_0 + 8 \to \tfrac{3}{2}R_0 + 10\text{)}. \end{cases}
+  $$
 - **Theorem 6 (Unconditional Symbolic Closure of the Two-Regime Automaton):**
   - **Regime 1 (Active Reservoir $R \ge 20$):** The regular language $\mathcal{L}_{\text{wave}} = \Sigma_{\text{std}}^* \cdot H \cdot \Sigma_{\text{std}}^* \cdot \{(\text{'E16'}, 0)\}$ over the **15 Defect-Wave Heads** $H \in \{\epsilon, P_1, \dots, P_{15}\}$ is **100% closed and halt-free** under `macro_step` for all counter depths $k \ge 0$.
   - **Regime 2 (Reservoir Drain $R \le 18 \to R_{\text{new}}$):** Starting from any standard counter suffix $\Sigma_{\text{std}}^{\ge 4} \cdot \{(16, 0), (18, 0)\}$, the drain trajectory is **100% closed and halt-free**, and exits back into Regime 1 at $H \in \{\epsilon, P_2 = ((\text{'E14'}, 2), (\text{'3'}, 3)), P_{11} = ((\text{'O15'}, 1), (\text{'3'}, 3))\}$.
@@ -50,21 +66,33 @@ The 6-state, 2-symbol Turing machine `1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`
 
 ### 1.1 Right-Boundary Configurations and Run-Length Encoding (RLE)
 
-A configuration is a **right-boundary configuration** if the head is in state `A` at the rightmost visited cell $\text{max\_i}$, reading `0` with all cells to its right equal to `0`:
-$$C = 0^\infty\ 1^{b_1}\ 0^{z_1}\ 1^{b_2}\ 0^{z_2}\ \cdots\ 1^{b_n}\ 0^{z_n}\ [A]\ 0^\infty,$$
+A configuration is a **right-boundary configuration** if the head is in state `A` at the rightmost visited cell $\text{max}_i$, reading `0` with all cells to its right equal to `0`:
+
+$$
+C = 0^\infty\ 1^{b_1}\ 0^{z_1}\ 1^{b_2}\ 0^{z_2}\ \cdots\ 1^{b_n}\ 0^{z_n}\ [A]\ 0^\infty,
+$$
+
 where $b_i \ge 1$ for all $1 \le i \le n$, $z_i \ge 1$ for $1 \le i \le n-1$, and $z_n \ge 0$. We represent $C$ concisely as a sequence of block-separator pairs:
-$$\text{blocks}(C) = \big[(b_1, z_1),\ (b_2, z_2),\ \dots,\ (b_n, z_n)\big].$$
+
+$$
+\text{blocks}(C) = \big[(b_1, z_1),\ (b_2, z_2),\ \dots,\ (b_n, z_n)\big].
+$$
 In the standard regime, $z_n = 0$ and $b_n = R$ is an even integer representing the **rightmost reservoir** $1^R [A] 0^\infty$; during a reservoir drain ($R = 0$), $z_n \in \{2, 3\}$ represents a trailing separator $00 [A] 0^\infty$ or $000 [A] 0^\infty$.
 
 ### 1.2 Phase 1: The Leftward $C$-Sweep
 
 At the start of a macro-cycle from a right-boundary configuration, the machine executes `A0 -> 1RB` and `B0 -> 0LC` in $2$ steps:
-$$1^{b_n}\ [A]\ 0\ 0^\infty \xrightarrow{1\text{ step}} 1^{b_n + 1}\ [B]\ 0^\infty \xrightarrow{1\text{ step}} 1^{b_n}\ [C]1\ 0^\infty \qquad (\text{if } z_n = 0),$$
+$$
+1^{b_n}\ [A]\ 0\ 0^\infty \xrightarrow{1\text{ step}} 1^{b_n + 1}\ [B]\ 0^\infty \xrightarrow{1\text{ step}} 1^{b_n}\ [C]1\ 0^\infty \qquad (\text{if } z_n = 0),
+$$
 or $0^{z_n}\ [A]\ 0^\infty \xrightarrow{2\text{ steps}} 0^{z_n}\ [C]1\ 0^\infty$ (if $z_n > 0$). Thus Phase 1 begins by sweeping a block of $b$ ones from right to left in state $C$, where $b = b_n + 1$ (if $z_n = 0$) or $b = 1$ (if $z_n > 0$).
 
 > [!IMPORTANT]
 > **Lemma 1 (4-Step Leftward $C$-Sweep Loop).** For any symbol $x \in \{0, 1\}$ and any integer $m \ge 1$:
-> $$x\ 1^{2m-1}\ [C]1 \xrightarrow{4m\text{ steps}} [C]x\ (01)^m.$$
+>
+> $$
+> x\ 1^{2m-1}\ [C]1 \xrightarrow{4m\text{ steps}} [C]x\ (01)^m.
+> $$$$
 > *Proof.* For $m = 1$, starting from $x\ 1\ [C]1$:
 > 1. `C1 -> 0LD`: $x\ [D]1\ 0$
 > 2. `D1 -> 0RD`: $x\ 0\ [D]0$
@@ -76,23 +104,40 @@ Applying Lemma 1 to a block of $b$ ones preceded by $0^z$ yields an exact dichot
 
 > **Lemma 2 (Block Parity Dichotomy in Phase 1).**
 > 1. **Even Block ($b = 2m_0 \ge 2$):** By Lemma 1 with $x = 0$,
->    $$0^z\ 1^{2m_0 - 1}\ [C]1 \xrightarrow{4m_0\text{ steps}} 0^{z-1}\ [C]0\ (01)^{m_0} \xrightarrow{1\text{ step (`C0 -> 1RA`)}} 0^{z-1}\ 1\ [A]\ (01)^{m_0}.$$
+>
+>    $$
+>    0^z\ 1^{2m_0 - 1}\ [C]1 \xrightarrow{4m_0\text{ steps}} 0^{z-1}\ [C]0\ (01)^{m_0} \xrightarrow{1\text{ step (C0}\to\text{1RA)}} 0^{z-1}\ 1\ [A]\ (01)^{m_0}.
+>    $$
+>
 >    Thus an even block **always terminates the leftward $C$-sweep** in $4m_0 + 1$ steps, decrementing its left separator $0^z \mapsto 0^{z-1}$ (absorbing it if $z = 1$) and initiating Phase 2 in state `A`.
 > 2. **Odd Block ($b = 2m + 1 \ge 1$):** By Lemma 1 with $x = 1$,
->    $$0^z\ 1^{2m}\ [C]1 \xrightarrow{4m\text{ steps}} 0^z\ [C]1\ (01)^m \xrightarrow{1\text{ step (`C1 -> 0LD`)}} 0^{z-1}\ [D]0\ 0\ (01)^m.$$
+>
+>    $$
+>    0^z\ 1^{2m}\ [C]1 \xrightarrow{4m\text{ steps}} 0^z\ [C]1\ (01)^m \xrightarrow{1\text{ step (C1}\to\text{0LD)}} 0^{z-1}\ [D]0\ 0\ (01)^m.
+>    $$
 >    The subsequent behavior in $4m+1$ steps depends solely on the separator length $z$:
 >    - **If $z = 1$ (Solitary Zero preceded by $1^a$):** `D0 -> 1LB` moves onto the rightmost `1` of $1^a$, `B1 -> 1RE` moves rightonto the `1` just written by `D`, and `E1 -> HALT` **halts in $2$ additional steps**.
 >    - **If $z = 2$ (`00` preceded by $1^{b_{\text{next}}}$):** `D0 -> 1LB, B0 -> 0LC` ($2$ steps) enters the next block $1^{b_{\text{next}}}$ in state $C$, leaving the suffix $S(m) := 0\ 1\ 0\ (01)^m = (01)\ 0\ (01)^m$ to its right:
->      $$1^{b_{\text{next}}}\ 00\ 1^{2m}\ [C]1 \xrightarrow{4m + 3\text{ steps}} 1^{b_{\text{next}} - 1}\ [C]1\ (01)\ 0\ (01)^m.$$
+>
+>      $$
+>      1^{b_{\text{next}}}\ 00\ 1^{2m}\ [C]1 \xrightarrow{4m + 3\text{ steps}} 1^{b_{\text{next}} - 1}\ [C]1\ (01)\ 0\ (01)^m.
+>      $$
+>
 >    - **If $z \ge 3$ (`000` preceded by $1^a$, or left blank tape $z = \infty$):** `D0 -> 1LB, B0 -> 0LC, C0 -> 1RA` ($3$ steps) bounces at the third zero, turning around in state `A`:
->      $$1^a\ 000\ 1^{2m}\ [C]1 \xrightarrow{4m + 4\text{ steps}} 1^{a+1}\ [A]\ (01)^1\ 0\ (01)^m.$$
+>
+>      $$
+>      1^a\ 000\ 1^{2m}\ [C]1 \xrightarrow{4m + 4\text{ steps}} 1^{a+1}\ [A]\ (01)^1\ 0\ (01)^m.
+>      $$
 
 ### 1.3 Phase 2: The Concatenation Identity and Rightward $A/E/F$-Sweep
 
 Suppose the leftward $C$-sweep crosses $r \ge 0$ odd blocks with parameters $m_1, m_2, \dots, m_r$ (from right to left) before turning around in state `A`. Because each crossed `00` contributes $S(m_i) = (01)\ 0\ (01)^{m_i}$, the trailing $(01)^{m_{i+1}}$ of block $i+1$ merges with the leading $(01)$ of $S(m_i)$ to form $(01)^{m_{i+1} + 1}$:
 
-> **Lemma 3 (Phase 1 Output String Identity).** At the instant the head turns around in state `A` at the end of Phase 1, the tape to the right of the head has the exact form
-> $$1^p\ [A]\ (01)^{k_0}\ 0\ (01)^{k_1}\ 0\ \cdots\ (01)^{k_s}\ 0\ 0^\infty,$$
+> **Lemma 3 (Phase 1 Output String Identity).** At the instant the head turns around in state `A` at the end of Phase 1, the tape to the right of the head has the exact form:
+>
+> $$
+> 1^p\ [A]\ (01)^{k_0}\ 0\ (01)^{k_1}\ 0\ \cdots\ (01)^{k_s}\ 0\ 0^\infty,
+> $$
 > where:
 > - If Phase 1 stopped at an **even block** $b = 2m_0$, then $k_{\text{list}} = [m_0]$ (if $r = 0$) or $k_{\text{list}} = [m_0 + 1,\ m_r + 1,\ \dots,\ m_2 + 1,\ m_1]$ (if $r \ge 1$).
 > - If Phase 1 bounced off **`000` ($z \ge 3$)** after an odd block $b = 2m_0 + 1$, then $k_{\text{list}} = [1,\ m_0]$ (if $r = 0$) or $k_{\text{list}} = [1,\ m_0 + 1,\ m_r + 1,\ \dots,\ m_2 + 1,\ m_1]$ (if $r \ge 1$).
@@ -103,13 +148,24 @@ Now we use the elementary string identity $(01)^k 0 = 0 (10)^k$ together with th
 > [!IMPORTANT]
 > **Lemma 4 (Exact Rightward $A/E/F$-Sweep Rules A, B, and C).** Starting from $1^p\ [A]\ (01)^{k_j}\ 0\ \dots$:
 > 1. **Rule A ($k_j \ge 2$):** Writing $k_j = (k_j - 2) + 2$,
->    $$1^p\ [A]\ (01)^{k_j}\ 0 = 1^p\ [A]\ 0\ 1\ 0\ 1\ 0\ (10)^{k_j - 2} \xrightarrow{2k_j + 1\text{ steps}} 1^{p+2}\ 000\ 1^{2k_j - 4}\ [A].$$
+>
+>    $$
+>    1^p\ [A]\ (01)^{k_j}\ 0 = 1^p\ [A]\ 0\ 1\ 0\ 1\ 0\ (10)^{k_j - 2} \xrightarrow{2k_j + 1\text{ steps}} 1^{p+2}\ 000\ 1^{2k_j - 4}\ [A].
+>    $$
+>
 >    *Trace:* `A0 -> 1RB` ($1^{p+1}[B]1010\dots$), `B1 -> 1RE` ($1^{p+2}[E]010\dots$), `E0 -> 0RF` ($1^{p+2}0[F]10\dots$), `F1 -> 0RF` ($1^{p+2}00[F]0\dots$), `F0 -> 0RA` ($1^{p+2}000[A](10)^{k_j-2}$ in $5$ steps), followed by $2(k_j - 2)$ steps to sweep $(10)^{k_j - 2}$, totaling $5 + 2k_j - 4 = 2k_j + 1$ steps.
 > 2. **Rule B ($k_j = 1$ with a subsequent segment $(01)^{k_{j+1}} 0$, $j < s$):** Since $(01)^1 0 (01)^{k_{j+1}} 0 = 0\ 1\ 0\ 0\ (10)^{k_{j+1}}$,
->    $$1^p\ [A]\ (01)^1\ 0\ (01)^{k_{j+1}}\ 0 \xrightarrow{2k_{j+1} + 4\text{ steps}} 1^{p+2}\ 00\ 1^{2k_{j+1}}\ [A].$$
+>
+>    $$
+>    1^p\ [A]\ (01)^1\ 0\ (01)^{k_{j+1}}\ 0 \xrightarrow{2k_{j+1} + 4\text{ steps}} 1^{p+2}\ 00\ 1^{2k_{j+1}}\ [A].
+>    $$
+>
 >    *Trace:* `A0 -> 1RB`, `B1 -> 1RE`, `E0 -> 0RF`, `F0 -> 0RA` ($4$ steps to reach $1^{p+2}\ 00\ [A]\ (10)^{k_{j+1}}$), followed by $2k_{j+1}$ steps to sweep $(10)^{k_{j+1}}$, consuming **two** entries $(k_j = 1, k_{j+1})$ of $k_{\text{list}}$ at once.
 > 3. **Rule C ($k_s = 1$ at the final entry of $k_{\text{list}}$ before $0^\infty$):** Since $(01)^1 0\ 0^\infty = 0\ 1\ 0\ 0\ 0^\infty$,
->    $$1^p\ [A]\ (01)^1\ 0\ 0^\infty \xrightarrow{4\text{ steps}} 1^{p+2}\ 00\ [A]\ 0^\infty.$$
+>
+>    $$
+>    1^p\ [A]\ (01)^1\ 0\ 0^\infty \xrightarrow{4\text{ steps}} 1^{p+2}\ 00\ [A]\ 0^\infty.
+>    $$
 >    *Note:* Rule C is the exact mechanism responsible for the $t = 3868 \to 3908$ transition pointed out by Claude (Heron): when a reservoir of size $R = 2$ ($m_1 = 1$) drains, $k_{\text{list}}$ ends with $k_s = m_1 = 1$, so Rule C leaves $00\ [A]\ 0^\infty$ ($p_{\text{final}} = 0$).
 
 Combining Lemmas 1–4 proves **Theorem 1**: the closed-form algorithm `macro_step` (implemented in Section 5) is 100% isomorphic to the bit-level execution of Machine #1965 between consecutive right-boundary visits.
@@ -123,16 +179,31 @@ Combining Lemmas 1–4 proves **Theorem 1**: the closed-form algorithm `macro_st
 Suppose the tape ends with a reservoir $(R, 0)$ where $R \ge 4$ is even (so at the start of Phase 1, $b_{\text{init}} = R + 1$ is odd with $m_1 = R/2 \ge 2$). Suppose Phase 1 crosses $r \ge 0$ internal odd blocks $(b_r, 2), \dots, (b_1, 2)$ (numbered from right to left, so $b_r$ is the **leftmost** crossed internal odd block) before stopping at block $b_{\text{stop}}$. Tracing Phase 2 across $k_{\text{list}}$ yields the exact block-by-block rewrite laws:
 
 1. **Bounce at `000` ($z = 3$) with $r = 0$ (no internal odd blocks crossed):**
-   $$(b_0, 3),\ (R, 0) \longrightarrow (b_0 + 3, 2),\ (R, 0) \qquad (\Delta R = 0).$$
+
+   $$
+   (b_0, 3),\ (R, 0) \longrightarrow (b_0 + 3, 2),\ (R, 0) \qquad (\Delta R = 0).
+   $$
+
 2. **Bounce at `000` ($z = 3$) after crossing $r \ge 1$ odd blocks $(b_r, 2), \dots, (b_1, 2)$:**
    Because $k_{\text{list}} = [1,\ m_r + 1,\ m_{r-1} + 1,\ \dots,\ m_1 + 1,\ R/2]$, **Rule B** consumes the pair $(1, m_r + 1)$, setting $p = 2(m_r + 1) = b_r + 1$, and the next step of Phase 2 adds $+2$ to $p$, turning $b_r$ into $b_r + 3$! Meanwhile, every subsequent crossed block $b_{r-1}, \dots, b_1$ is processed by **Rule A**, which sets $p = 2(m_i + 1) - 4 = b_i - 3$ and then adds $+2$ to give $b_i - 1$:
-   $$(b_0, 3),\ (b_r, 2),\ (b_{r-1}, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow (b_0 + 3, 2),\ \mathbf{(b_r + 3, 3)},\ (b_{r-1} - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).$$
+
+   $$
+   (b_0, 3),\ (b_r, 2),\ (b_{r-1}, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow (b_0 + 3, 2),\ \mathbf{(b_r + 3, 3)},\ (b_{r-1} - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).
+   $$
+
 3. **Stop inside an Even Block $(b_{\text{even}}, 2)$ preceded by $(a, z_a)$ after crossing $r \ge 0$ odd blocks:**
    Since $b_{\text{even}} = 2m_0 \ge 2$ is internal, at least the reservoir $R$ was crossed, so $k_0 = m_0 + 1 \ge 2$. **Rule A** always executes at `idx = 0`:
    - **If $z_a \in \{2, 3\}$ (Spawning `(3, 3)`):**
-     $$(a, z_a),\ (b_{\text{even}}, 2),\ (b_r, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow (a, z_a - 1),\ \mathbf{(3, 3)},\ (b_{\text{even}}, 3),\ (b_r - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).$$
+
+     $$
+     (a, z_a),\ (b_{\text{even}}, 2),\ (b_r, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow (a, z_a - 1),\ \mathbf{(3, 3)},\ (b_{\text{even}}, 3),\ (b_r - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).
+     $$
+
    - **If $z_a = 1$ (Absorbing a Solitary Zero):**
-     $$(a, 1),\ (b_{\text{even}}, 2),\ (b_r, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow \mathbf{(a + 3, 3)},\ (b_{\text{even}}, 3),\ (b_r - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).$$
+
+     $$
+     (a, 1),\ (b_{\text{even}}, 2),\ (b_r, 2),\ \dots,\ (b_1, 2),\ (R, 0) \longrightarrow \mathbf{(a + 3, 3)},\ (b_{\text{even}}, 3),\ (b_r - 1, 3),\ \dots,\ (b_1 - 1, 3),\ (R - 4, 0).
+     $$
 
 ### 2.2 Proof of the Solitary-Zero Lifecycle and $+8$ Ladder (Theorem 2)
 
@@ -141,10 +212,16 @@ Suppose the tape ends with a reservoir $(R, 0)$ where $R \ge 4$ is even (so at t
 > 1. Phase 2 (`Rules A, B, C`) only appends separators $z \in \{2, 3\}$ and never creates $z = 1$.
 > 2. At the end of every macro-cycle, the rightmost block length $p \in \{2k - 4, 2k_{\text{next}}, 0\}$ is **even**, so the initial $C$-sweep block $b_{\text{init}} = p + 1$ (or $1$) at the start of the next macro-cycle is **always odd**.
 > 3. Consequently, whenever Phase 1 stops at an even block $b = 2m_0 \ge 2$ and decrements $z_a = 2 \mapsto 1$ to create a solitary zero (`[0, 1]`), at least one odd block was already crossed (`len(crossed_m) >= 1`), so $k_0 = m_0 + 1 \ge 2$. Therefore, Rule A **always** executes at `idx = 0` with $p = 1$, placing **`(3, 3)` (`1^3 000`)** immediately to the right of the newly created solitary zero:
->    $$(a, 2),\ (b_{\text{even}}, 2) \longrightarrow (a, 1),\ (3, 3),\ (b_{\text{even}}, 3).$$
+>
+>    $$
+>    (a, 2),\ (b_{\text{even}}, 2) \longrightarrow (a, 1),\ (3, 3),\ (b_{\text{even}}, 3).
+>    $$
 > 4. While the block to the right of $(a, 1)$ is $(3, 3)$, its right separator is $z = 3$ (`000`), which blocks any $C$-sweep from entering `3`. Provided no `(even, 2)` defect lies to the right of `(3, 3)`, the first $C$-sweep reaching `(3, 3)` bounces at `000` (`k_list[0] = 1`, Rule B/C) and transforms $(a, 1), (3, 3)$ into $(a, 1), (6, 2)$. The next $C$-sweep reaching $(6, 2)$ crosses `00` into the **even** block `6`, landing on the solitary zero in state $C$ (`C0 -> 1RA`) and absorbing it into $(a + 3, 3), (6, 3)$.
 > 5. Thereafter, $(6, 3)$ climbs the $+8$ promotion ladder into the standard counter alphabet $\Sigma_{\text{std}} = \{(\text{'E14'}, 3), (\text{'O15'}, 2)\}$:
->    $$(a+3, 3), (6, 3) \xrightarrow{\text{carry}} (a+3, 3), (9, 2) \xrightarrow{\text{carry (Rule B)}} (a+6, 2), (12, 3) \xrightarrow{\text{carry}} (a+6, 2), (15, 2).$$
+>
+>    $$
+>    (a+3, 3), (6, 3) \xrightarrow{\text{carry}} (a+3, 3), (9, 2) \xrightarrow{\text{carry (Rule B)}} (a+6, 2), (12, 3) \xrightarrow{\text{carry}} (a+6, 2), (15, 2).
+>    $$
 >    Note that `9` never drops to `8` because `(9, 2)` is *always* preceded by `z = 3` (`000`), so it is always the **leftmost** crossed odd block $b_r$ in Rewrite Law 2 and therefore gains $+3$ ($9 \mapsto 12$). $\blacksquare$
 
 ### 2.3 Proof of the Universal Binary-Counter Bit-Growth Law (Theorem 3)
@@ -157,7 +234,10 @@ In a suffix of standard binary-counter blocks $\Sigma_{\text{std}} = \{(\text{'E
 > - Once (at cycle $2^{j+1} \pmod{2^{j+1}}$), the carry crosses bit $j$ and at least bit $j + 1$ ($r \ge j + 1$), so $b_j$ is a **non-leftmost crossed odd block** in Rewrite Law 2 and loses **$-1$**.
 >
 > Summing these four events gives the exact invariant growth rate for **every** bit position $j \ge 1$:
-> $$\boxed{\Delta b_j = +3 + 3 + 3 - 1 = +8 \text{ per } 2^{j+1} \text{ macro-cycles} \qquad \Longleftrightarrow \qquad \frac{\Delta b_j}{|\Delta R|} = \frac{8}{2^{j+2}} = \frac{1}{2^{j-1}}.}$$
+>
+> $$
+> \Delta b_j = +3 + 3 + 3 - 1 = +8 \text{ per } 2^{j+1} \text{ macro-cycles} \qquad \Longleftrightarrow \qquad \frac{\Delta b_j}{|\Delta R|} = \frac{8}{2^{j+2}} = \frac{1}{2^{j-1}}.
+> $$
 
 ---
 
@@ -168,18 +248,30 @@ In a suffix of standard binary-counter blocks $\Sigma_{\text{std}} = \{(\text{'E
 A remarkable consequence of Lemma 3 and Lemma 4 is that internal counter bits near the reservoir are **causally shielded** from defects deeper on the tape:
 
 > **Theorem 4 (Causal Shielding of the Rightmost Counter Bits).** Suppose that during a macro-cycle, Phase 1 crosses the reservoir $R$ ($m_{\text{res}} = R/2 \ge 2$) and $r \ge 2$ standard odd blocks $(b_r, 2), \dots, (b_1, 2)$ with $b_i \ge 15$ ($m_i \ge 7$) before stopping at depth $d = r + 1$ (either at an even block or by bouncing at `000`). Then the last $r$ entries of $k_{\text{list}}$ are
-> $$k_{\text{list}}[-r:] = [m_{r-1} + 1,\ \dots,\ m_1 + 1,\ R / 2],$$
+>
+> $$
+> k_{\text{list}}[-r:] = [m_{r-1} + 1,\ \dots,\ m_1 + 1,\ R / 2],
+> $$
 > where $m_i + 1 \ge 8 \ge 2$ for all $1 \le i \le r - 1$. In Phase 2, because $k_{\text{list}}[-r] = m_{r-1} + 1 \ge 8 \ge 2$, any `Rule B` step ($k = 1$) triggered at the left end of $k_{\text{list}}$ finishes at or before index $-r - 1$. Therefore, `Rule A` executes deterministically on each of the last $r$ entries of $k_{\text{list}}$, mapping
-> $$(b_{r-1}, 2), \dots, (b_1, 2), (R, 0) \longmapsto (b_{r-1} - 1, 3), \dots, (b_1 - 1, 3), (R - 4, 0)$$
+>
+> $$
+> (b_{r-1}, 2), \dots, (b_1, 2), (R, 0) \longmapsto (b_{r-1} - 1, 3), \dots, (b_1 - 1, 3), (R - 4, 0)
+> $$
 > **independently of the block sizes, parities, or separators at depth $d \ge r + 1$.** $\blacksquare$
 
 ### 3.2 Derivation of the Exact Modulo-16 Collatz-Like Reservoir Recurrence (Theorem 5)
 
-Consider the start of any super-era where the newly formed reservoir satisfies $R_0 \equiv 4 \pmod 8$ ($R_0 \ge 60$, starting at Cycle 89 with $R_0 = 60$) and the rightmost blocks are
-$$\dots,\ (B, 2),\ (3, 3),\ (R_0, 0) \qquad (B \ge 66 \text{ even}).$$
+Consider the start of any super-era where the newly formed reservoir satisfies $R_0 \equiv 4 \pmod 8$ ($R_0 \ge 60$, starting at Cycle 89 with $R_0 = 60$) and the rightmost blocks are:
+
+$$
+\dots,\ (B, 2),\ (3, 3),\ (R_0, 0) \qquad (B \ge 66 \text{ even}).
+$$
 
 1. **First 14 Macro-Cycles of Era 1 ($\Delta R = -28$):** Over the first 14 cycles, `(B, 2), (3, 3)` heals and shifts one block to the left, creating **three** standard binary-counter bits at $j = 3, 2, 1$:
-   $$\dots,\ (B', z'),\ (3, 3),\ (B + 6, 3),\ (14, 3),\ (30, 3),\ (R_0 - 28, 0).$$
+
+   $$
+   \dots,\ (B', z'),\ (3, 3),\ (B + 6, 3),\ (14, 3),\ (30, 3),\ (R_0 - 28, 0).
+   $$
    From this point onward, all defects lie at depth $d \ge 4$ (to the left of $(B+6, 3)$ at $j = 3$). By **Theorem 4 (Causal Shielding)**, bits $j = 1$ (`30`) and $j = 2$ (`14`) are **100% causally shielded** from the left tape for the entire remainder of Era 1!
 2. **Completion of Era 1 ($R_0 - 28 \to 0$):** Since $R_0 \equiv 4 \pmod 8$, $R_0 - 28 \equiv 0 \pmod 8$ is a multiple of $8$, so $(R_0 - 28)/2$ is a multiple of $4$ macro-cycles. By **Theorem 3**:
    - Bit $j = 1$ (`30`) grows by $+\frac{1}{2^0} |\Delta R| = +(R_0 - 28)$ plus $+4$ during the final 3-cycle drain of `R = 4 -> 000 [A] -> (R_1, 0)`, becoming the Era 2 reservoir:
@@ -196,7 +288,10 @@ $$\dots,\ (B, 2),\ (3, 3),\ (R_0, 0) \qquad (B \ge 66 \text{ even}).$$
 
 > [!IMPORTANT]
 > **Theorem 5 (Exact Modulo-16 Collatz-Like Super-Era Recurrence).** Under Causal Shielding (Theorem 4), the sequence of $0 \pmod 4$ reservoirs $\{R_0^{(n)}\}_{n \ge 1}$ starting at Cycle 89 ($R_0^{(1)} = 60$) is completely determined by the deterministic recurrence:
-> $$\boxed{R_0^{(n+1)} = \begin{cases} \dfrac{3}{2} R_0^{(n)} + 6 & \text{if } R_0^{(n)} \equiv 4 \pmod{16}, \\[8pt] \dfrac{3}{2} R_0^{(n)} + 10 & \text{if } R_0^{(n)} \equiv 12 \pmod{16}. \end{cases}}$$
+>
+> $$
+> R_0^{(n+1)} = \begin{cases} \dfrac{3}{2} R_0^{(n)} + 6 & \text{if } R_0^{(n)} \equiv 4 \pmod{16}, \\[8pt] \dfrac{3}{2} R_0^{(n)} + 10 & \text{if } R_0^{(n)} \equiv 12 \pmod{16}. \end{cases}
+> $$
 
 Every single one of the 19 super-eras in the first $500,000$ macro-cycles ($t = 161.8 \times 10^9$ steps) obeys Theorem 5 identically:
 
@@ -292,8 +387,11 @@ By Theorem 6, the **only** way Machine #1965 could ever leave the Two-Regime Aut
 
 Why does this collision never occur across all $52$ eras ($161.8$ billion steps)?
 1. **Exponential Growth of Step Time ($7 \times 2^{3m-4}$ Cycles per Defect Step):** Each time the propagating defect wave $P_1 \to \dots \to P_{10} \to P_1$ shifts one block to the left (stage $m = 1, 2, 3, \dots$), it inserts two new standard counter bits (`k -> k + 2`), increasing its bit depth from the reservoir by $+3$ ($d = 2 \to 5 \to 8 \to 11 \to 14 \to \dots$). Completing stage $m \ge 2$ requires $7 \times 2^{3m - 4}$ macro-cycles ($\Delta R = 7 \times 2^{3m - 3}$).
-2. **2-Adic Phase Alignment ($R \equiv R_0 - 28 \pmod{2^{3m-3}}$):** At the completion of Stage 1 ($14$ cycles into Era 1, when $R = R_0 - 28$), all $3$ standard counter bits to the right of the defect are initialized to `('E14', 3)` (`000` in binary). Consequently, at every subsequent stage $m \ge 2$, every carry arrival at the defect head occurs when the $(3m-3)$-bit binary counter to its right completes a full period of $2^{3m-4}$ macro-cycles ($\Delta R = 2^{3m-3}$), forcing
-   $$R_{\text{at carry arrival}} \equiv R_0 - 28 \pmod{2^{3m - 3}}.$$
+2. **2-Adic Phase Alignment ($R \equiv R_0 - 28 \pmod{2^{3m-3}}$):** At the completion of Stage 1 ($14$ cycles into Era 1, when $R = R_0 - 28$), all $3$ standard counter bits to the right of the defect are initialized to `('E14', 3)` (`000` in binary). Consequently, at every subsequent stage $m \ge 2$, every carry arrival at the defect head occurs when the $(3m-3)$-bit binary counter to its right completes a full period of $2^{3m-4}$ macro-cycles ($\Delta R = 2^{3m-3}$), forcing:
+
+   $$
+   R_{\text{at carry arrival}} \equiv R_0 - 28 \pmod{2^{3m - 3}}.
+   $$
 3. **Permanent Freezing of Unextinguished Defects:** Whenever the remaining reservoir $R$ in Era 1 + Era 2 is smaller than the next sub-step requirement $2^{3m-3}$, the binary counter to the right of the defect wave cannot reach `11...1` before $R$ drains. At the end of Era 2 ($R_1 \equiv 2 \pmod 4$), a new defect wave is born at $d = 2$, which inserts $+2$ new blocks at each stage on the right, pushing the old unextinguished defect wave permanently beyond the logarithmic reach $\log_2(R/2)$ of all future eras (producing the three frozen solitary-zero fossils at block indices $3, 8, 18$ observed in the long-run tape prefix).
 
 > **Theorem 7 (Conditional Global Non-Halting Reduction).** *If for every reservoir drain ($R \le 18$) after Cycle 400, the active 4-bit counter suffix to the left of $(R, 0)$ lies in $\Sigma_{\text{std}}^{\ge 4}$ (the **Defect-Drain Separation Property**), then Machine #1965 (`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF`) never halts and its reservoir sequence obeys Theorem 5 for all $n \ge 1$.*

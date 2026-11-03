@@ -15,13 +15,18 @@ bb6-holdouts-research/
 ├── 01-tm-1965-ctl-proof/
 │   └── formal_non_halting_proof_tm_1965.md
 └── 02-antihydra-adelic-theory/
+    ├── README.md
+    ├── volume_1_foundations_and_invariants.md
+    ├── volume_2_adelic_space_and_contraction.md
+    ├── volume_3_reversal_transducer_and_subspaces.md
+    ├── volume_4_action_law_haar_measure_and_sieve.md
     └── complete_treatise_antihydra_bb6.md
 ```
 
 | Directory & File | Target Machine ($BB(6){}$) | Status | Nature of Contribution |
 | :--- | :--- | :---: | :--- |
 | [`01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md`](./01-tm-1965-ctl-proof/formal_non_halting_proof_tm_1965.md) | **TM `#1965`**<br>`1RB1RC_0LC1RE_1RA0LD_1LB0RD_0RF---_0RA0RF` | 🔬 **Exact Algebraic Reduction & Two-Regime Closure**<br>(Verified to $t = 1.618 \times 10^{11}$) | Exact closed-form macro-simulator, $+8$ bit-growth law, Causal Shielding, exact mod-16 Collatz-like reservoir recurrence, and Two-Regime 15-Head Automaton closure + Python verifier. |
-| [`02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md`](./02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md) | **Antihydra**<br>`1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA` | 🔬 **Theoretical Advance**<br>*(Halting Conjecture Open)* | 18-part mathematical treatise proving exact algebraic, $p$-adic, Archimedean, Fibonacci, and Diophantine invariants + 12-test Python verification suite. |
+| [`02-antihydra-adelic-theory/`](./02-antihydra-adelic-theory/)<br>• [Vol 1 (Parts I–V)](./02-antihydra-adelic-theory/volume_1_foundations_and_invariants.md)<br>• [Vol 2 (Parts VI–IX)](./02-antihydra-adelic-theory/volume_2_adelic_space_and_contraction.md)<br>• [Vol 3 (Parts X–XIV)](./02-antihydra-adelic-theory/volume_3_reversal_transducer_and_subspaces.md)<br>• [Vol 4 (Parts XV–XVIII)](./02-antihydra-adelic-theory/volume_4_action_law_haar_measure_and_sieve.md)<br>• [Complete Monograph](./02-antihydra-adelic-theory/complete_treatise_antihydra_bb6.md) | **Antihydra**<br>`1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA` | 🔬 **Theoretical Advance**<br>*(Halting Conjecture Open)* | 18-part mathematical treatise proving exact algebraic, $p$-adic, Archimedean, Fibonacci, and Diophantine invariants + 12-test Python verification suite. Modularized across 4 volumes to guarantee 100% flawless GitHub MathJax/KaTeX rendering without browser timeouts. |
 
 ---
 
